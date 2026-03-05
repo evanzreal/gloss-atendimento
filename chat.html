@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testar Agente — Pine Tree Farm</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#1a3d2b;--pine:#2D6A4F;--sage:#52B788;--moss:#74C69D;
+  --mist:#B7E4C7;--dew:#D8F3DC;--amber:#D4A853;--stone:#6B7280;
+  --parchment:#F7F4EF;--ink:#1C1F1A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Outfit',sans-serif;background:var(--parchment);color:var(--ink);height:100dvh;display:flex;flex-direction:column;}
+
+/* NAV */
+.nav{background:var(--forest);border-bottom:2px solid var(--sage);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-circle{width:32px;height:32px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.nav-title{font-family:'DM Serif Display',serif;font-size:15px;color:#fff;line-height:1.2;}
+.nav-sub{font-size:9px;color:var(--moss);letter-spacing:.1em;text-transform:uppercase;}
+.back-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(82,183,136,.12);border:1px solid rgba(82,183,136,.3);border-radius:8px;color:var(--sage);font-size:12px;font-family:'Outfit',sans-serif;text-decoration:none;transition:background .2s;}
+.back-btn:hover{background:rgba(82,183,136,.22);}
+
+/* LAYOUT */
+.layout{flex:1;display:flex;overflow:hidden;}
+
+/* SIDEBAR */
+.sidebar{width:260px;background:#fff;border-right:1px solid #e5e7eb;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;}
+.sidebar-head{padding:20px 18px 14px;border-bottom:1px solid #f0f0f0;}
+.sidebar-head h2{font-family:'DM Serif Display',serif;font-size:16px;color:var(--forest);margin-bottom:4px;}
+.sidebar-head p{font-size:11px;color:var(--stone);line-height:1.5;}
+.sidebar-section{padding:14px 18px;}
+.sidebar-label{font-size:9px;font-weight:700;color:var(--stone);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;font-family:'DM Mono',monospace;}
+.phase-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:7px;margin-bottom:2px;font-size:12px;color:var(--stone);}
+.phase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.phase-item.active{background:var(--dew);color:var(--forest);font-weight:500;}
+.info-box{background:var(--dew);border-radius:10px;padding:12px 14px;margin-top:4px;}
+.info-row{font-size:11px;color:var(--stone);line-height:1.8;}
+.info-row strong{color:var(--forest);}
+.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sage);margin-right:5px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.reset-btn{margin:8px 18px 18px;padding:9px;background:var(--dew);border:1px solid var(--mist);border-radius:8px;color:var(--pine);font-size:12px;font-family:'Outfit',sans-serif;cursor:pointer;transition:background .2s;font-weight:500;}
+.reset-btn:hover{background:var(--mist);}
+
+/* CHAT AREA */
+.chat-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.chat-topbar{padding:12px 20px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.agent-avatar{width:36px;height:36px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.agent-name{font-size:14px;font-weight:600;color:var(--forest);}
+.agent-status{font-size:11px;color:var(--sage);display:flex;align-items:center;gap:4px;}
+.agent-status::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sage);}
+
+/* MESSAGES */
+.messages{flex:1;overflow-y:auto;padding:20px 16px;display:flex;flex-direction:column;gap:8px;background:#ECE5DD;}
+.messages::-webkit-scrollbar{width:4px;}
+.messages::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:2px;}
+
+.msg-wrap{display:flex;}
+.msg-wrap.user{justify-content:flex-end;}
+.msg-wrap.bot{justify-content:flex-start;}
+.bubble{max-width:72%;padding:9px 13px;border-radius:8px;font-size:13.5px;line-height:1.55;position:relative;word-break:break-word;}
+.bubble.bot{background:#fff;color:#111;border-radius:0 8px 8px 8px;box-shadow:0 1px 2px rgba(0,0,0,.1);}
+.bubble.user{background:#DCF8C6;color:#111;border-radius:8px 0 8px 8px;box-shadow:0 1px 2px rgba(0,0,0,.1);}
+.bubble-sender{font-size:10px;font-weight:700;color:var(--pine);margin-bottom:3px;}
+.bubble-time{font-size:10px;color:#999;text-align:right;margin-top:3px;}
+.bubble-time .ticks{color:#34B7F1;}
+
+.typing-wrap{display:flex;justify-content:flex-start;}
+.typing{background:#fff;border-radius:0 8px 8px 8px;padding:10px 14px;box-shadow:0 1px 2px rgba(0,0,0,.1);display:flex;gap:4px;align-items:center;}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--stone);opacity:.4;animation:dot 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:.2s;}
+.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes dot{0%,60%,100%{opacity:.4;transform:scale(1)}30%{opacity:1;transform:scale(1.2)}}
+
+.phase-divider{display:flex;justify-content:center;margin:6px 0;}
+.phase-pill{padding:3px 12px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;box-shadow:0 1px 4px rgba(0,0,0,.1);}
+
+/* INPUT */
+.input-area{background:#F0F0F0;border-top:1px solid #ddd;padding:10px 12px;display:flex;align-items:flex-end;gap:8px;flex-shrink:0;}
+.input-wrap{flex:1;background:#fff;border-radius:22px;padding:9px 16px;display:flex;align-items:center;gap:8px;min-height:42px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+#msg-input{flex:1;border:none;outline:none;font-size:14px;font-family:'Outfit',sans-serif;color:var(--ink);background:transparent;resize:none;max-height:100px;line-height:1.4;}
+#msg-input::placeholder{color:#aaa;}
+.send-btn{width:40px;height:40px;background:var(--pine);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;flex-shrink:0;}
+.send-btn:hover{background:var(--forest);}
+.send-btn:disabled{background:#ccc;cursor:default;}
+.send-btn svg{width:18px;height:18px;fill:#fff;margin-left:2px;}
+
+/* EMPTY STATE */
+.empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--stone);padding:32px;}
+.empty-icon{width:64px;height:64px;background:var(--dew);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;}
+.empty-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--forest);}
+.empty-desc{font-size:13px;text-align:center;line-height:1.6;max-width:280px;}
+.quick-btns{display:flex;flex-direction:column;gap:8px;margin-top:4px;width:100%;max-width:300px;}
+.quick-btn{padding:9px 16px;background:#fff;border:1px solid #e5e7eb;border-radius:20px;font-size:12px;color:var(--forest);cursor:pointer;transition:all .15s;text-align:center;font-family:'Outfit',sans-serif;}
+.quick-btn:hover{background:var(--dew);border-color:var(--mist);}
+
+/* MOBILE */
+@media(max-width:768px){
+  .sidebar{display:none;}
+  .nav{padding:0 14px;}
+  .chat-topbar{padding:10px 14px;}
+  .messages{padding:14px 10px;}
+  .bubble{max-width:85%;font-size:13px;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-circle">🌲</div>
+    <div>
+      <div class="nav-title">Pine Tree Farm</div>
+      <div class="nav-sub">Teste do Agente</div>
+    </div>
+  </div>
+  <a class="back-btn" href="index.html">← Voltar ao Artefato</a>
+</nav>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <h2>Agente Pinetree</h2>
+      <p><span class="status-dot"></span>Online · Pronto para atendimento</p>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Fases do Atendimento</div>
+      <div class="phase-item active" id="phase-1"><div class="phase-dot" style="background:#52B788"></div>1 · Boas-vindas</div>
+      <div class="phase-item" id="phase-2"><div class="phase-dot" style="background:#74C69D"></div>2 · Captura de E-mail</div>
+      <div class="phase-item" id="phase-3"><div class="phase-dot" style="background:#D4A853"></div>3 · Apresentar Produtos</div>
+      <div class="phase-item" id="phase-4"><div class="phase-dot" style="background:#C9705A"></div>4 · Agente Especialista</div>
+      <div class="phase-item" id="phase-5"><div class="phase-dot" style="background:#2D6A4F"></div>5 · Qualificação</div>
+      <div class="phase-item" id="phase-6"><div class="phase-dot" style="background:#1a3d2b"></div>6 · Encerramento</div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Dados coletados</div>
+      <div class="info-box" id="collected-data">
+        <div class="info-row" style="color:var(--stone);font-style:italic;font-size:11px;">Nenhum dado coletado ainda.</div>
+      </div>
+    </div>
+
+    <button class="reset-btn" onclick="resetChat()">↺ Reiniciar conversa</button>
+  </aside>
+
+  <!-- CHAT -->
+  <div class="chat-wrap">
+    <div class="chat-topbar">
+      <div class="agent-avatar">🌲</div>
+      <div>
+        <div class="agent-name">Agente Pinetree</div>
+        <div class="agent-status">online</div>
+      </div>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">🌲</div>
+        <div class="empty-title">Olá! Tudo pronto.</div>
+        <div class="empty-desc">Inicie uma conversa para testar o agente de atendimento da Pine Tree Farm.</div>
+        <div class="quick-btns">
+          <button class="quick-btn" onclick="sendQuick('oi')">👋 Dizer oi</button>
+          <button class="quick-btn" onclick="sendQuick('quero informações sobre aniversário')">🎉 Perguntar sobre aniversário</button>
+          <button class="quick-btn" onclick="sendQuick('quero saber sobre colônia de férias')">🏕️ Perguntar sobre colônia</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <div class="input-wrap">
+        <textarea id="msg-input" placeholder="Digite uma mensagem..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+      </div>
+      <button class="send-btn" id="send-btn" onclick="sendMessage()">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const WEBHOOK_URL = 'https://api.drbrunarodrigues.com/webhook/evals-pinetree';
+const SESSION_ID  = 'session_' + Math.random().toString(36).slice(2, 10);
+
+let messageCount = 0;
+let collectedData = {};
+
+function now() {
+  return new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+function sendQuick(text) {
+  document.getElementById('msg-input').value = text;
+  sendMessage();
+}
+
+function scrollBottom() {
+  const m = document.getElementById('messages');
+  m.scrollTop = m.scrollHeight;
+}
+
+function hideEmpty() {
+  const e = document.getElementById('empty-state');
+  if (e) e.remove();
+}
+
+function addBubble(text, role, time) {
+  hideEmpty();
+  const messages = document.getElementById('messages');
+  const wrap = document.createElement('div');
+  wrap.className = `msg-wrap ${role}`;
+
+  const bubble = document.createElement('div');
+  bubble.className = `bubble ${role}`;
+
+  if (role === 'bot') {
+    bubble.innerHTML = `<div class="bubble-sender">🤖 Agente Pinetree</div>${escapeHtml(text).replace(/\n/g,'<br>')}<div class="bubble-time">${time}</div>`;
+  } else {
+    bubble.innerHTML = `${escapeHtml(text).replace(/\n/g,'<br>')}<div class="bubble-time">${time} <span class="ticks">✓✓</span></div>`;
+  }
+
+  wrap.appendChild(bubble);
+  messages.appendChild(wrap);
+  scrollBottom();
+  return wrap;
+}
+
+function showTyping() {
+  hideEmpty();
+  const messages = document.getElementById('messages');
+  const wrap = document.createElement('div');
+  wrap.className = 'typing-wrap';
+  wrap.id = 'typing-indicator';
+  wrap.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+  messages.appendChild(wrap);
+  scrollBottom();
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing-indicator');
+  if (t) t.remove();
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function setSendDisabled(val) {
+  document.getElementById('send-btn').disabled = val;
+}
+
+async function sendMessage() {
+  const input = document.getElementById('msg-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+  setSendDisabled(true);
+
+  const t = now();
+  addBubble(text, 'user', t);
+  messageCount++;
+
+  showTyping();
+
+  try {
+    const res = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: text,
+        sessionId: SESSION_ID,
+        timestamp: new Date().toISOString()
+      })
+    });
+
+    removeTyping();
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const data = await res.json();
+
+    // Aceita { output }, { message }, { response }, { text }, ou string direta
+    let reply = '';
+    if (typeof data === 'string') reply = data;
+    else if (data.output)   reply = data.output;
+    else if (data.message)  reply = data.message;
+    else if (data.response) reply = data.response;
+    else if (data.text)     reply = data.text;
+    else reply = JSON.stringify(data);
+
+    addBubble(reply, 'bot', now());
+    parseCollectedData(reply);
+
+  } catch (err) {
+    removeTyping();
+    addBubble('⚠️ Não consegui me conectar ao agente. Verifique o webhook e tente novamente.', 'bot', now());
+    console.error(err);
+  }
+
+  setSendDisabled(false);
+  document.getElementById('msg-input').focus();
+}
+
+// Tenta extrair dados coletados da resposta do agente
+function parseCollectedData(text) {
+  const lower = text.toLowerCase();
+  if (/\d{1,2}\/\d{1,2}|\d{1,2} de \w+/.test(text))         collectedData.data     = text.match(/(\d{1,2}[\/-]\d{1,2}(?:[\/-]\d{2,4})?|\d{1,2} de \w+)/i)?.[0];
+  if (/aniversário|aniversario/i.test(lower))                 collectedData.modalidade = 'Aniversário';
+  if (/colônia|colonia/i.test(lower))                         collectedData.modalidade = 'Colônia de Férias';
+  if (/casamento/i.test(lower))                               collectedData.modalidade = 'Casamento';
+  if (/15 anos/i.test(lower))                                 collectedData.modalidade = '15 Anos';
+  if (/corporativo/i.test(lower))                             collectedData.modalidade = 'Corporativo';
+  if (/natureza|harry potter|princesas/i.test(lower))         collectedData.tema = text.match(/natureza|harry potter|princesas/i)?.[0];
+  const criancas = text.match(/(\d+)\s*crian[çc]as/i);
+  if (criancas) collectedData.criancas = criancas[1];
+  const adultos = text.match(/(\d+)\s*adultos/i);
+  if (adultos) collectedData.adultos = adultos[1];
+  const email = text.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
+  if (email) collectedData.email = email[0];
+
+  renderCollectedData();
+}
+
+function renderCollectedData() {
+  const box = document.getElementById('collected-data');
+  if (!Object.keys(collectedData).length) return;
+  const labels = { modalidade:'Modalidade', data:'Data', criancas:'Crianças', adultos:'Adultos', tema:'Tema', email:'E-mail' };
+  box.innerHTML = Object.entries(collectedData).map(([k,v]) =>
+    `<div class="info-row">${labels[k]||k}: <strong>${v}</strong></div>`
+  ).join('');
+}
+
+function resetChat() {
+  const messages = document.getElementById('messages');
+  messages.innerHTML = `
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">🌲</div>
+      <div class="empty-title">Olá! Tudo pronto.</div>
+      <div class="empty-desc">Inicie uma conversa para testar o agente de atendimento da Pine Tree Farm.</div>
+      <div class="quick-btns">
+        <button class="quick-btn" onclick="sendQuick('oi')">👋 Dizer oi</button>
+        <button class="quick-btn" onclick="sendQuick('quero informações sobre aniversário')">🎉 Perguntar sobre aniversário</button>
+        <button class="quick-btn" onclick="sendQuick('quero saber sobre colônia de férias')">🏕️ Perguntar sobre colônia</button>
+      </div>
+    </div>`;
+  collectedData = {};
+  document.getElementById('collected-data').innerHTML = '<div class="info-row" style="color:var(--stone);font-style:italic;font-size:11px;">Nenhum dado coletado ainda.</div>';
+  messageCount = 0;
+}
+</script>
+</body>
+</html>

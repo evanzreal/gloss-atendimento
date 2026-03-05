@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview — Pine Tree Farm · BIOS Consulting Group</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--forest:#1a3d2b;--pine:#2D6A4F;--sage:#52B788;--moss:#74C69D;--mist:#B7E4C7;--dew:#D8F3DC;--amber:#D4A853;--clay:#C9705A;--stone:#6B7280;--parchment:#F7F4EF;--ink:#1C1F1A;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Outfit',sans-serif;background:var(--parchment);color:var(--ink);}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--dew);}::-webkit-scrollbar-thumb{background:var(--sage);border-radius:3px;}
+@keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes phoneIn{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes treeSway{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:1000;background:var(--forest);border-bottom:2px solid var(--sage);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:12px;}
+.nav-circle{width:36px;height:36px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.nav-title{font-family:'DM Serif Display',serif;font-size:16px;color:#fff;line-height:1.2;}
+.nav-sub{font-size:10px;color:var(--moss);letter-spacing:.1em;text-transform:uppercase;font-weight:300;}
+.nav-links{display:flex;gap:4px;}
+.nav-btn{background:transparent;border:1px solid transparent;border-radius:8px;padding:7px 16px;color:rgba(255,255,255,.6);font-size:13px;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;text-decoration:none;}
+.nav-btn:hover,.nav-btn.active{background:rgba(82,183,136,.18);border-color:rgba(82,183,136,.4);color:var(--sage);font-weight:600;}
+.nav-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--moss);opacity:.6;text-align:right;}
+
+/* ── HERO ── */
+.hero{background:var(--forest);padding:100px 40px 80px;text-align:center;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(82,183,136,.1) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(45,106,79,.15) 0%,transparent 50%);pointer-events:none;}
+.hero-trees{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-around;align-items:flex-end;opacity:.05;pointer-events:none;}
+.hero-badge{display:inline-block;padding:4px 14px;background:rgba(82,183,136,.15);border:1px solid rgba(82,183,136,.3);border-radius:20px;font-size:11px;color:var(--moss);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;font-family:'DM Mono',monospace;}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,52px);color:#fff;line-height:1.15;margin-bottom:16px;}
+.hero p{font-size:16px;color:rgba(255,255,255,.55);max-width:520px;margin:0 auto 40px;line-height:1.7;font-weight:300;}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.hero-btn{padding:11px 22px;background:rgba(82,183,136,.12);border:1px solid rgba(82,183,136,.3);border-radius:10px;color:var(--sage);font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:background .2s;display:flex;align-items:center;gap:8px;text-decoration:none;}
+.hero-btn:hover{background:rgba(82,183,136,.22);}
+
+/* ── SECTION HEADER ── */
+.sec-head{padding:60px 48px 40px;border-bottom:1px solid #e5e7eb;}
+.sec-head.light{background:linear-gradient(180deg,#f0ede8 0%,var(--parchment) 100%);}
+.sec-head.mid{background:linear-gradient(180deg,#e8e4de 0%,#f0ede8 100%);}
+.sec-head.dark{background:linear-gradient(180deg,#eae7e2 0%,var(--parchment) 100%);}
+.sec-inner{max-width:1400px;margin:0 auto;}
+.sec-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:var(--dew);border:1px solid var(--mist);border-radius:20px;font-size:11px;color:var(--pine);font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
+.sec-badge.alt{background:rgba(82,183,136,.12);border-color:rgba(82,183,136,.25);}
+.sec-title{font-family:'DM Serif Display',serif;font-size:36px;color:var(--forest);line-height:1.2;}
+.sec-desc{font-size:14px;color:var(--stone);font-weight:300;max-width:480px;line-height:1.7;margin-top:8px;}
+
+/* ── CANVAS ── */
+.canvas{padding:40px 48px;max-width:1400px;margin:0 auto;}
+.canvas-mid{padding:60px 48px;max-width:1300px;margin:0 auto;}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:32px;padding:14px 20px;background:#fff;border-radius:12px;border:1px solid #e5e7eb;}
+.leg-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--stone);font-weight:500;letter-spacing:.04em;text-transform:uppercase;}
+.leg-dot{width:11px;height:11px;border-radius:3px;flex-shrink:0;}
+.block{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:24px 28px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.04);animation:slideUp .5s ease both;}
+.block-hd{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--dew);}
+.block-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.block-title{font-family:'DM Serif Display',serif;font-size:16px;color:var(--forest);}
+.block-desc{font-size:11px;color:var(--stone);font-weight:300;}
+.svgwrap{width:100%;overflow-x:auto;}
+.nd{cursor:default;transition:filter .15s;} .nd:hover{filter:drop-shadow(0 4px 12px rgba(0,0,0,.18));}
+
+/* ── AGENTS ── */
+.agent-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.agent-card{background:var(--forest);color:#fff;border-radius:11px;padding:14px 10px;text-align:center;}
+.agent-card.dim{opacity:.72;}
+
+/* ── PHONE ── */
+.wa-page{background:#f0ede8;}
+.wa-layout{display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:start;}
+.sidebar-card{background:#fff;border-radius:16px;padding:20px;border:1px solid #e5e7eb;box-shadow:0 2px 8px rgba(0,0,0,.04);margin-bottom:14px;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.stat-box{background:var(--dew);border-radius:8px;padding:10px 12px;text-align:center;}
+.phone{width:100%;max-width:400px;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.18),0 0 0 8px #1a1a1a,0 0 0 10px #2a2a2a;animation:phoneIn .6s cubic-bezier(.22,1,.36,1) both;}
+.wa-head{background:#075E54;padding:11px 14px;display:flex;align-items:center;gap:11px;}
+.wa-body{background:#ECE5DD;padding:14px 11px;max-height:620px;overflow-y:auto;}
+.wa-foot{background:#F0F0F0;padding:9px 11px;display:flex;align-items:center;gap:8px;border-top:1px solid #ddd;}
+.bubble-bot{display:flex;justify-content:flex-start;margin-bottom:2px;}
+.bubble-user{display:flex;justify-content:flex-end;margin-bottom:2px;}
+.bbl-bot{max-width:78%;padding:8px 11px;background:#fff;color:#111;box-shadow:0 1px 2px rgba(0,0,0,.1);font-size:13.5px;line-height:1.5;}
+.bbl-user{max-width:78%;padding:8px 11px;background:#DCF8C6;color:#111;border-radius:8px 0 8px 8px;box-shadow:0 1px 2px rgba(0,0,0,.1);font-size:13.5px;line-height:1.5;}
+.btime{font-size:10px;color:#999;text-align:right;margin-top:3px;}
+.phase-div{display:flex;justify-content:center;margin:18px 0 12px;}
+.phase-pill{padding:4px 14px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 2px 6px rgba(0,0,0,.12);}
+.menu-item{padding:5px 10px;margin:3px 0;background:#D8F3DC;border-left:3px solid #52B788;border-radius:0 6px 6px 0;font-size:13px;color:#1a3d2b;}
+
+/* ── GANTT ── */
+.gantt{background:#fff;border-radius:16px;border:1px solid #e5e7eb;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);margin-bottom:16px;}
+.gantt-head{display:grid;grid-template-columns:180px 1fr 1fr 1fr;background:var(--forest);border-bottom:2px solid var(--sage);}
+.gantt-row{display:grid;grid-template-columns:180px 1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;min-height:50px;}
+.gantt-divider{display:grid;grid-template-columns:180px 1fr 1fr 1fr;background:var(--dew);border-bottom:1px solid #d1d5db;}
+.gantt-label{padding:10px 18px;font-size:12px;font-weight:500;color:var(--forest);border-right:2px solid var(--dew);display:flex;align-items:center;gap:8px;}
+.gantt-cell{padding:10px 8px;display:flex;align-items:center;border-right:1px solid #e5e7eb;}
+.gantt-bar{height:26px;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:filter .15s;cursor:default;}
+
+/* ── STATUS GRID ── */
+.status-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:52px;}
+.status-card{border-radius:14px;padding:18px 14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:transform .15s;cursor:default;}
+.status-card:hover{transform:translateY(-2px);}
+
+/* ── NOTES ── */
+.notes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.note-card{background:#fff;border-radius:12px;padding:20px;border:1px solid #e5e7eb;box-shadow:0 2px 6px rgba(0,0,0,.04);}
+
+/* ── FOOTER ── */
+footer{background:var(--forest);border-top:2px solid var(--sage);padding:28px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .nav{padding:0 20px;gap:8px;}
+  .nav-links{gap:2px;flex-wrap:wrap;}
+  .nav-btn{padding:5px 10px;font-size:11px;}
+  .nav-meta{display:none;}
+  .hero{padding:60px 24px 50px;}
+  .sec-head{padding:40px 24px 28px;}
+  .sec-title{font-size:28px;}
+  .canvas,.canvas-mid{padding:28px 20px;}
+  .agent-grid{grid-template-columns:repeat(3,1fr);}
+  .status-grid{grid-template-columns:repeat(3,1fr);}
+  .wa-layout{grid-template-columns:1fr;gap:20px;}
+  .wa-layout>div:first-child{position:static !important;}
+  .gantt-head,.gantt-row,.gantt-divider{grid-template-columns:140px 1fr 1fr 1fr;}
+  .gantt-label{padding:8px 10px;font-size:11px;}
+  .notes-grid{grid-template-columns:1fr 1fr;}
+  footer{padding:20px 24px;}
+}
+
+@media(max-width:768px){
+  .nav{height:auto;min-height:56px;flex-wrap:wrap;padding:10px 16px;gap:6px;}
+  .nav-links{width:100%;justify-content:center;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;gap:2px;padding-bottom:4px;}
+  .nav-btn{padding:5px 8px;font-size:10px;white-space:nowrap;}
+  .hero h1{font-size:clamp(24px,7vw,36px);}
+  .hero p{font-size:14px;}
+  .hero-btns{flex-direction:column;align-items:center;}
+  .sec-head{padding:32px 16px 24px;}
+  .sec-title{font-size:24px;}
+  .sec-desc{font-size:13px;}
+  .canvas,.canvas-mid{padding:20px 16px;}
+  .legend{flex-wrap:wrap;gap:8px;padding:10px 14px;}
+  .block{padding:16px 14px;}
+  .svgwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px;}
+  .agent-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .agent-card{padding:10px 8px;font-size:12px;}
+  .wa-layout{grid-template-columns:1fr;gap:16px;}
+  .sidebar-card{padding:14px;}
+  .stat-grid{grid-template-columns:1fr 1fr;gap:6px;}
+  .phone{max-width:100%;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.15),0 0 0 4px #1a1a1a;}
+  .wa-body{max-height:none;padding:10px 8px;}
+  .bbl-bot,.bbl-user{max-width:88%;font-size:13px;}
+  .gantt{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .gantt-head,.gantt-row,.gantt-divider{min-width:600px;grid-template-columns:130px 1fr 1fr 1fr;}
+  .status-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .status-card{padding:14px 10px;}
+  .notes-grid{grid-template-columns:1fr;}
+  footer{padding:16px;flex-direction:column;text-align:center;gap:8px;}
+}
+
+@media(max-width:480px){
+  .nav{padding:8px 12px;}
+  .nav-circle{width:30px;height:30px;font-size:15px;}
+  .nav-title{font-size:14px;}
+  .nav-links{gap:1px;}
+  .nav-btn{padding:4px 6px;font-size:9px;gap:3px;}
+  .hero{padding:40px 16px 36px;}
+  .hero-badge{font-size:10px;padding:3px 10px;}
+  .hero h1{font-size:clamp(20px,6vw,28px);}
+  .hero p{font-size:13px;margin-bottom:24px;}
+  .hero-btn{padding:9px 16px;font-size:12px;}
+  .sec-head{padding:24px 12px 20px;}
+  .sec-title{font-size:20px;}
+  .canvas,.canvas-mid{padding:16px 12px;}
+  .block{padding:14px 12px;border-radius:12px;}
+  .block-title{font-size:14px;}
+  .agent-grid{grid-template-columns:1fr 1fr;gap:6px;}
+  .phone{border-radius:14px;box-shadow:0 8px 20px rgba(0,0,0,.12),0 0 0 3px #1a1a1a;}
+  .status-grid{grid-template-columns:1fr 1fr;gap:6px;}
+  .status-card{padding:12px 8px;border-radius:10px;}
+  .gantt-head,.gantt-row,.gantt-divider{min-width:520px;}
+  footer{font-size:11px;}
+}
+
+/* ── KANBAN ── */
+.kanban-grid{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+@media(max-width:1024px){.kanban-grid{grid-template-columns:repeat(5,minmax(200px,1fr)) !important;}}
+@media(max-width:768px){.kanban-grid{grid-template-columns:repeat(5,200px) !important;padding-bottom:8px;}}
+
+/* ── Inline-override helpers (for inline-styled grids) ── */
+.resp-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.resp-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.resp-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.resp-cols-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.resp-cost-table-row{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1.2fr;align-items:center;}
+@media(max-width:768px){
+  .resp-grid-4{grid-template-columns:repeat(2,1fr) !important;}
+  .resp-grid-3{grid-template-columns:1fr !important;}
+  .resp-grid-2{grid-template-columns:1fr !important;}
+  .resp-cols-4{grid-template-columns:repeat(2,1fr) !important;}
+  .resp-cost-table-row{grid-template-columns:1fr 1fr !important;gap:4px;padding:10px 14px !important;}
+  .resp-cost-table-row>div:nth-child(5){grid-column:1/-1;text-align:center !important;}
+  [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr) !important;}
+  [style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr !important;}
+  [style*="grid-template-columns:1fr 1fr;"]{grid-template-columns:1fr !important;}
+  [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr !important;}
+  [style*="max-width:1200px"]{padding-left:16px !important;padding-right:16px !important;}
+  [style*="max-width:1100px"]{padding-left:16px !important;padding-right:16px !important;}
+  [style*="padding:48px 48px"]{padding:24px 16px !important;}
+  [style*="padding:60px 48px"]{padding:28px 16px !important;}
+}
+@media(max-width:480px){
+  .resp-grid-4{grid-template-columns:1fr !important;}
+  .resp-cols-4{grid-template-columns:1fr !important;}
+  [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:1fr 1fr !important;}
+  [style*="padding:32px"]{padding:20px 14px !important;}
+  [style*="font-size:56px"]{font-size:36px !important;}
+  [style*="font-size:36px"]{font-size:24px !important;}
+  [style*="font-size:28px"]{font-size:22px !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-circle">🌲</div>
+    <div>
+      <div class="nav-title">Pine Tree Farm</div>
+      <div class="nav-sub">Sistema de Atendimento</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a class="nav-btn active" href="#sistema">⚙️ Sistema</a>
+    <a class="nav-btn" href="#crm">📋 CRM</a>
+    <a class="nav-btn" href="#evaluation">🧪 Evaluation</a>
+    <a class="nav-btn" href="#conversacional">💬 Conversacional</a>
+    <a class="nav-btn" href="#custos">💰 Custos</a>
+    <a class="nav-btn" href="#plano">📅 Plano de Ação</a>
+  </div>
+  <div class="nav-meta">BIOS Consulting Group × Pine Tree · 2026</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-trees">
+    <svg width="48" height="80" viewBox="0 0 60 100"><polygon points="30,0 60,60 40,60 50,100 10,100 20,60 0,60" fill="#52B788"/></svg>
+    <svg width="72" height="120" viewBox="0 0 60 100"><polygon points="30,0 60,60 40,60 50,100 10,100 20,60 0,60" fill="#52B788"/></svg>
+    <svg width="96" height="160" viewBox="0 0 60 100"><polygon points="30,0 60,60 40,60 50,100 10,100 20,60 0,60" fill="#52B788"/></svg>
+    <svg width="60" height="100" viewBox="0 0 60 100"><polygon points="30,0 60,60 40,60 50,100 10,100 20,60 0,60" fill="#52B788"/></svg>
+    <svg width="84" height="140" viewBox="0 0 60 100"><polygon points="30,0 60,60 40,60 50,100 10,100 20,60 0,60" fill="#52B788"/></svg>
+    <svg width="54" height="90" viewBox="0 0 60 100"><polygon points="30,0 60,60 40,60 50,100 10,100 20,60 0,60" fill="#52B788"/></svg>
+    <svg width="66" height="110" viewBox="0 0 60 100"><polygon points="30,0 60,60 40,60 50,100 10,100 20,60 0,60" fill="#52B788"/></svg>
+    <svg width="90" height="150" viewBox="0 0 60 100"><polygon points="30,0 60,60 40,60 50,100 10,100 20,60 0,60" fill="#52B788"/></svg>
+  </div>
+  <div style="position:relative;z-index:1;">
+    <div class="hero-badge">Documentação do Projeto</div>
+    <h1>Sistema de Atendimento<br><em style="color:var(--sage)">Pine Tree Farm</em></h1>
+    <p>Visão completa do sistema de atendimento automatizado via WhatsApp — arquitetura técnica, jornada conversacional e plano de implementação.</p>
+    <div class="hero-btns">
+      <a class="hero-btn" href="#sistema">⚙️ Sistema</a>
+      <a class="hero-btn" href="#crm">📋 CRM</a>
+      <a class="hero-btn" href="#evaluation">🧪 Evaluation</a>
+      <a class="hero-btn" href="#conversacional">💬 Conversacional</a>
+      <a class="hero-btn" href="#custos">💰 Custos</a>
+      <a class="hero-btn" href="#plano">📅 Plano de Ação</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 1: FLUXO DO SISTEMA -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="sistema" style="scroll-margin-top:64px;">
+  <div class="sec-head light">
+    <div class="sec-inner">
+      <div class="sec-badge">⚙️ &nbsp;01</div>
+      <h2 class="sec-title">Fluxo do Sistema</h2>
+      <p class="sec-desc">Arquitetura técnica completa do pipeline de atendimento — do recebimento da mensagem até o roteamento para os agentes especialistas.</p>
+    </div>
+  </div>
+  <div class="canvas">
+    <div class="legend">
+      <div class="leg-item"><div class="leg-dot" style="background:var(--forest)"></div>Entrada</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#C4B5FD"></div>CRM (Agendor)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#FCD34D"></div>Banco de Dados</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--amber)"></div>Decisão</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--pine)"></div>IA / Processamento</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--moss)"></div>Mensagem ao Cliente</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#FCA5A5"></div>Parar / Aguardar</div>
+    </div>
+
+    <!-- BLOCK 1 -->
+    <div class="block" style="animation-delay:.05s">
+      <div class="block-hd"><div class="block-icon" style="background:var(--dew)">📡</div>
+        <div><div class="block-title">1. Entrada & Identificação</div><div class="block-desc">Validação do contato e carregamento de contexto</div></div></div>
+      <div class="svgwrap"><svg width="900" height="80" viewBox="0 0 900 80">
+        <defs><marker id="a1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/></marker></defs>
+        <line x1="145" y1="40" x2="170" y2="40" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a1)"/>
+        <line x1="305" y1="40" x2="330" y2="40" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a1)"/>
+        <line x1="465" y1="40" x2="490" y2="40" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a1)"/>
+        <line x1="625" y1="40" x2="650" y2="40" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a1)"/>
+        <g class="nd"><rect x="0" y="14" width="145" height="52" rx="8" fill="#1a3d2b"/><text x="72" y="36" text-anchor="middle" fill="white" font-size="12" font-weight="600" font-family="Outfit,sans-serif">Mensagem</text><text x="72" y="52" text-anchor="middle" fill="rgba(255,255,255,.65)" font-size="10" font-family="Outfit,sans-serif">recebida · WhatsApp</text></g>
+        <g class="nd"><rect x="170" y="14" width="135" height="52" rx="8" fill="white" stroke="#B7E4C7" stroke-width="1.5"/><text x="237" y="36" text-anchor="middle" font-size="12" font-family="Outfit,sans-serif">Valida ID</text><text x="237" y="52" text-anchor="middle" fill="#6B7280" font-size="10" font-family="Outfit,sans-serif">× Número</text></g>
+        <g class="nd"><rect x="330" y="14" width="135" height="52" rx="8" fill="white" stroke="#B7E4C7" stroke-width="1.5"/><text x="397" y="36" text-anchor="middle" font-size="12" font-family="Outfit,sans-serif">Carrega Variáveis</text><text x="397" y="52" text-anchor="middle" fill="#6B7280" font-size="10" font-family="Outfit,sans-serif">de Comunicação</text></g>
+        <g class="nd"><rect x="490" y="14" width="135" height="52" rx="8" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1.5"/><text x="557" y="36" text-anchor="middle" fill="#5B21B6" font-size="12" font-family="Outfit,sans-serif">Busca Contato</text><text x="557" y="52" text-anchor="middle" fill="#5B21B6" font-size="10" font-family="Outfit,sans-serif">no CRM (Agendor)</text></g>
+        <g class="nd"><rect x="650" y="14" width="135" height="52" rx="8" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1.5"/><text x="717" y="36" text-anchor="middle" fill="#92400E" font-size="12" font-family="Outfit,sans-serif">Busca dados</text><text x="717" y="52" text-anchor="middle" fill="#92400E" font-size="10" font-family="Outfit,sans-serif">no Banco de Dados</text></g>
+      </svg></div>
+    </div>
+
+    <!-- BLOCK 2 -->
+    <div class="block" style="animation-delay:.1s">
+      <div class="block-hd"><div class="block-icon" style="background:#EDE9FE">🗃️</div>
+        <div><div class="block-title">2. Verificação & Cadastro</div><div class="block-desc">Garante registro em CRM e Banco de Dados antes de prosseguir</div></div></div>
+      <div class="svgwrap"><svg width="860" height="260" viewBox="0 0 860 260">
+        <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/></marker><marker id="a2g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#166534"/></marker><marker id="a2r" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#991B1B"/></marker></defs>
+        <text x="185" y="20" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#6B7280" letter-spacing="1" font-weight="600">VERIFICAÇÃO CRM</text>
+        <g class="nd"><polygon points="185,40 245,75 185,110 125,75" fill="#D4A853" stroke="#B8860B" stroke-width="1.5"/><text x="185" y="70" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">Existe</text><text x="185" y="85" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">no CRM?</text></g>
+        <line x1="125" y1="75" x2="60" y2="75" stroke="#166534" stroke-width="1.5" marker-end="url(#a2g)"/>
+        <text x="92" y="68" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#166534" font-weight="700">SIM</text>
+        <g class="nd"><rect x="0" y="90" width="120" height="44" rx="7" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1.5"/><text x="60" y="108" text-anchor="middle" fill="#5B21B6" font-size="11" font-family="Outfit,sans-serif">Usa cadastro</text><text x="60" y="124" text-anchor="middle" fill="#5B21B6" font-size="11" font-family="Outfit,sans-serif">existente</text></g>
+        <line x1="185" y1="110" x2="185" y2="145" stroke="#991B1B" stroke-width="1.5" marker-end="url(#a2r)"/>
+        <text x="196" y="132" font-family="DM Mono,monospace" font-size="10" fill="#991B1B" font-weight="700">NÃO</text>
+        <g class="nd"><rect x="125" y="145" width="120" height="40" rx="7" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1.5"/><text x="185" y="161" text-anchor="middle" fill="#5B21B6" font-size="11" font-family="Outfit,sans-serif">Cria Contato</text><text x="185" y="176" text-anchor="middle" fill="#5B21B6" font-size="11" font-family="Outfit,sans-serif">no CRM</text></g>
+        <line x1="185" y1="185" x2="185" y2="210" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a2)"/>
+        <g class="nd"><rect x="125" y="210" width="120" height="40" rx="7" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1.5"/><text x="185" y="226" text-anchor="middle" fill="#5B21B6" font-size="11" font-family="Outfit,sans-serif">Cria Negócio</text><text x="185" y="241" text-anchor="middle" fill="#5B21B6" font-size="11" font-family="Outfit,sans-serif">no CRM</text></g>
+        <line x1="430" y1="0" x2="430" y2="260" stroke="#e5e7eb" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <text x="660" y="20" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#6B7280" letter-spacing="1" font-weight="600">VERIFICAÇÃO BANCO DE DADOS</text>
+        <g class="nd"><polygon points="660,40 720,75 660,110 600,75" fill="#D4A853" stroke="#B8860B" stroke-width="1.5"/><text x="660" y="70" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">Existe</text><text x="660" y="85" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">no BD?</text></g>
+        <line x1="720" y1="75" x2="790" y2="75" stroke="#166534" stroke-width="1.5" marker-end="url(#a2g)"/>
+        <text x="755" y="68" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#166534" font-weight="700">SIM</text>
+        <g class="nd"><rect x="732" y="53" width="120" height="44" rx="7" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1.5"/><text x="792" y="71" text-anchor="middle" fill="#92400E" font-size="11" font-family="Outfit,sans-serif">Carrega</text><text x="792" y="86" text-anchor="middle" fill="#92400E" font-size="11" font-family="Outfit,sans-serif">dados</text></g>
+        <line x1="660" y1="110" x2="660" y2="145" stroke="#991B1B" stroke-width="1.5" marker-end="url(#a2r)"/>
+        <text x="671" y="132" font-family="DM Mono,monospace" font-size="10" fill="#991B1B" font-weight="700">NÃO</text>
+        <g class="nd"><rect x="600" y="145" width="120" height="40" rx="7" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1.5"/><text x="660" y="161" text-anchor="middle" fill="#92400E" font-size="11" font-family="Outfit,sans-serif">Cria contato</text><text x="660" y="176" text-anchor="middle" fill="#92400E" font-size="11" font-family="Outfit,sans-serif">no Banco</text></g>
+      </svg></div>
+    </div>
+
+    <!-- BLOCK 3 -->
+    <div class="block" style="animation-delay:.15s">
+      <div class="block-hd"><div class="block-icon" style="background:#FFF7ED">⏱️</div>
+        <div><div class="block-title">3. Controle de Intervenção Humana</div><div class="block-desc">Evita conflito entre bot e atendente humano — janela de 30 minutos</div></div></div>
+      <div class="svgwrap"><svg width="1020" height="310" viewBox="0 0 1020 310">
+        <defs><marker id="a3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/></marker><marker id="a3g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#166534"/></marker><marker id="a3r" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#991B1B"/></marker></defs>
+        <!-- Top nodes -->
+        <g class="nd"><rect x="20" y="10" width="140" height="44" rx="7" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.5"/><text x="90" y="28" text-anchor="middle" fill="#9A3412" font-size="11" font-family="Outfit,sans-serif">Seta contador</text><text x="90" y="44" text-anchor="middle" fill="#9A3412" font-size="11" font-family="Outfit,sans-serif">intervenção (30min)</text></g>
+        <line x1="90" y1="54" x2="90" y2="80" stroke="#166534" stroke-width="1.5" marker-end="url(#a3g)"/>
+        <text x="98" y="72" font-family="DM Mono,monospace" font-size="10" fill="#166534" font-weight="700">SIM</text>
+        <g class="nd"><rect x="410" y="10" width="140" height="44" rx="7" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.5"/><text x="480" y="28" text-anchor="middle" fill="#9A3412" font-size="11" font-family="Outfit,sans-serif">Guarda hora atual</text><text x="480" y="44" text-anchor="middle" fill="#9A3412" font-size="11" font-family="Outfit,sans-serif">no Timeout</text></g>
+        <line x1="480" y1="54" x2="480" y2="80" stroke="#166534" stroke-width="1.5" marker-end="url(#a3g)"/>
+        <text x="488" y="72" font-family="DM Mono,monospace" font-size="10" fill="#166534" font-weight="700">SIM</text>
+        <!-- Diamonds -->
+        <g class="nd"><polygon points="90,80 155,120 90,160 25,120" fill="#D4A853" stroke="#B8860B" stroke-width="1.5"/><text x="90" y="115" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">Mensagem</text><text x="90" y="130" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">própria?</text></g>
+        <line x1="155" y1="120" x2="220" y2="120" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a3)"/>
+        <text x="187" y="112" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#6B7280" font-weight="700">NÃO</text>
+        <g class="nd"><rect x="220" y="98" width="130" height="44" rx="7" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.5"/><text x="285" y="116" text-anchor="middle" fill="#9A3412" font-size="12" font-family="Outfit,sans-serif">Busca</text><text x="285" y="132" text-anchor="middle" fill="#9A3412" font-size="12" font-family="Outfit,sans-serif">Timeout</text></g>
+        <line x1="350" y1="120" x2="415" y2="120" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a3)"/>
+        <g class="nd"><polygon points="480,80 545,120 480,160 415,120" fill="#D4A853" stroke="#B8860B" stroke-width="1.5"/><text x="480" y="115" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">Timeout</text><text x="480" y="130" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">vazio?</text></g>
+        <line x1="545" y1="120" x2="620" y2="120" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a3)"/>
+        <text x="582" y="112" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#6B7280" font-weight="700">NÃO</text>
+        <g class="nd"><polygon points="695,80 760,120 695,160 630,120" fill="#D4A853" stroke="#B8860B" stroke-width="1.5"/><text x="695" y="115" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">Dentro</text><text x="695" y="130" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">dos 30min?</text></g>
+        <line x1="760" y1="120" x2="830" y2="120" stroke="#166534" stroke-width="1.5" marker-end="url(#a3g)"/>
+        <text x="795" y="112" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#166534" font-weight="700">SIM</text>
+        <g class="nd"><rect x="830" y="98" width="120" height="44" rx="7" fill="#D8F3DC" stroke="#74C69D" stroke-width="1.5"/><text x="890" y="116" text-anchor="middle" fill="#1a3d2b" font-size="11" font-family="Outfit,sans-serif">Continua</text><text x="890" y="132" text-anchor="middle" fill="#1a3d2b" font-size="11" font-family="Outfit,sans-serif">atendimento</text></g>
+        <!-- PARAR -->
+        <line x1="695" y1="160" x2="695" y2="230" stroke="#991B1B" stroke-width="1.5" marker-end="url(#a3r)"/>
+        <text x="707" y="200" font-family="DM Mono,monospace" font-size="10" fill="#991B1B" font-weight="700">NÃO</text>
+        <g class="nd"><rect x="635" y="230" width="120" height="40" rx="20" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1.5"/><text x="695" y="255" text-anchor="middle" fill="#991B1B" font-size="12" font-family="Outfit,sans-serif" font-weight="600">PARAR</text></g>
+      </svg></div>
+    </div>
+
+    <!-- BLOCK 4 -->
+    <div class="block" style="animation-delay:.2s">
+      <div class="block-hd"><div class="block-icon" style="background:var(--dew)">⚡</div>
+        <div><div class="block-title">4. Roteamento & Processamento de Mensagem</div><div class="block-desc">Debounce de 3s agrupa mensagens consecutivas antes de processar</div></div></div>
+      <div class="svgwrap"><svg width="900" height="220" viewBox="0 0 900 220">
+        <defs><marker id="a4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/></marker><marker id="a4b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#1E40AF"/></marker><marker id="a4p" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#9D174D"/></marker></defs>
+        <g class="nd"><polygon points="90,60 155,105 90,150 25,105" fill="#D4A853" stroke="#B8860B" stroke-width="1.5"/><text x="90" y="100" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">Tipo de</text><text x="90" y="116" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">mensagem?</text></g>
+        <line x1="155" y1="75" x2="270" y2="55" stroke="#1E40AF" stroke-width="1.5" marker-end="url(#a4b)"/>
+        <text x="205" y="55" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#1E40AF" font-weight="700">TEXTO</text>
+        <g class="nd"><rect x="270" y="30" width="130" height="44" rx="7" fill="#2D6A4F" stroke="#52B788" stroke-width="1.5"/><text x="335" y="50" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif">Armazena</text><text x="335" y="65" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif">na fila</text></g>
+        <line x1="155" y1="135" x2="270" y2="155" stroke="#9D174D" stroke-width="1.5" marker-end="url(#a4p)"/>
+        <text x="205" y="168" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#9D174D" font-weight="700">ÁUDIO/IMG</text>
+        <g class="nd"><rect x="270" y="135" width="130" height="44" rx="7" fill="#2D6A4F" stroke="#52B788" stroke-width="1.5"/><text x="335" y="155" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif">Conversão</text><text x="335" y="171" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif">com IA</text></g>
+        <line x1="400" y1="157" x2="460" y2="157" stroke="#9CA3AF" stroke-width="1.5"/>
+        <path d="M460,157 L460,74 L480,74" stroke="#9CA3AF" stroke-width="1.5" fill="none" marker-end="url(#a4)"/>
+        <line x1="400" y1="52" x2="480" y2="52" stroke="#9CA3AF" stroke-width="1.5"/>
+        <line x1="480" y1="52" x2="480" y2="105" stroke="#9CA3AF" stroke-width="1.5"/>
+        <line x1="480" y1="105" x2="510" y2="105" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a4)"/>
+        <g class="nd"><rect x="510" y="82" width="130" height="46" rx="7" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1.5"/><text x="575" y="101" text-anchor="middle" fill="#374151" font-size="12" font-family="Outfit,sans-serif">⏳ Timer</text><text x="575" y="117" text-anchor="middle" fill="#374151" font-size="12" font-family="Outfit,sans-serif">3 segundos</text></g>
+        <line x1="640" y1="105" x2="700" y2="105" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a4)"/>
+        <g class="nd"><rect x="700" y="82" width="140" height="46" rx="7" fill="#2D6A4F" stroke="#52B788" stroke-width="1.5"/><text x="770" y="101" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif">Recupera Lista</text><text x="770" y="116" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif">de Mensagens</text></g>
+      </svg></div>
+    </div>
+
+    <!-- BLOCK 5 -->
+    <div class="block" style="animation-delay:.25s">
+      <div class="block-hd"><div class="block-icon" style="background:var(--dew)">🗺️</div>
+        <div><div class="block-title">5. Fases do Atendimento</div><div class="block-desc">Máquina de estados — cada resposta avança a fase no banco de dados</div></div></div>
+      <div class="svgwrap"><svg width="960" height="520" viewBox="0 0 960 520">
+        <defs><marker id="a5" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#9CA3AF"/></marker><marker id="a5g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#166534"/></marker><marker id="a5r" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#991B1B"/></marker></defs>
+        <g class="nd"><polygon points="200,10 265,45 200,80 135,45" fill="#D4A853" stroke="#B8860B" stroke-width="1.5"/><text x="200" y="40" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">Valida Fase</text><text x="200" y="56" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">do Atendimento</text></g>
+        <line x1="135" y1="45" x2="60" y2="45" stroke="#9CA3AF" stroke-width="1.5"/><line x1="60" y1="45" x2="60" y2="100" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a5)"/>
+        <text x="44" y="40" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#6B7280" font-weight="700">F1</text>
+        <line x1="265" y1="45" x2="440" y2="45" stroke="#9CA3AF" stroke-width="1.5"/><line x1="440" y1="45" x2="440" y2="100" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a5)"/>
+        <text x="352" y="38" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#6B7280" font-weight="700">F2</text>
+        <line x1="310" y1="90" x2="310" y2="520" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="5,4"/>
+        <!-- F1 -->
+        <text x="60" y="96" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#52B788" font-weight="700" letter-spacing="1">FASE 1 · PRIMEIRO CONTATO</text>
+        <g class="nd"><rect x="0" y="100" width="120" height="42" rx="7" fill="#D8F3DC" stroke="#74C69D" stroke-width="1.5"/><text x="60" y="118" text-anchor="middle" fill="#1a3d2b" font-size="11" font-family="Outfit,sans-serif">Boas-vindas</text><text x="60" y="133" text-anchor="middle" fill="#1a3d2b" font-size="9" font-family="Outfit,sans-serif">img + vídeo + msg</text></g>
+        <line x1="60" y1="142" x2="60" y2="160" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a5)"/>
+        <g class="nd"><rect x="0" y="160" width="120" height="42" rx="7" fill="#D8F3DC" stroke="#74C69D" stroke-width="1.5"/><text x="60" y="178" text-anchor="middle" fill="#1a3d2b" font-size="11" font-family="Outfit,sans-serif">Reforço redes</text><text x="60" y="193" text-anchor="middle" fill="#1a3d2b" font-size="9" font-family="Outfit,sans-serif">Instagram + Site</text></g>
+        <line x1="60" y1="202" x2="60" y2="220" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a5)"/>
+        <g class="nd"><rect x="0" y="220" width="120" height="42" rx="7" fill="#D8F3DC" stroke="#74C69D" stroke-width="1.5"/><text x="60" y="238" text-anchor="middle" fill="#1a3d2b" font-size="11" font-family="Outfit,sans-serif">Solicita</text><text x="60" y="253" text-anchor="middle" fill="#1a3d2b" font-size="9" font-family="Outfit,sans-serif">melhor e-mail</text></g>
+        <line x1="60" y1="262" x2="60" y2="280" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a5)"/>
+        <g class="nd"><rect x="0" y="280" width="120" height="42" rx="7" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1.5"/><text x="60" y="298" text-anchor="middle" fill="#92400E" font-size="11" font-family="Outfit,sans-serif">Atualiza fase</text><text x="60" y="313" text-anchor="middle" fill="#92400E" font-size="9" font-family="Outfit,sans-serif">no banco</text></g>
+        <line x1="60" y1="322" x2="60" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a5)"/>
+        <g class="nd"><rect x="0" y="340" width="120" height="36" rx="18" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1.5"/><text x="60" y="363" text-anchor="middle" fill="#991B1B" font-size="12" font-family="Outfit,sans-serif" font-weight="600">PARAR</text></g>
+        <!-- F2 -->
+        <text x="440" y="96" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#74C69D" font-weight="700" letter-spacing="1">FASE 2 · CAPTURA DE E-MAIL</text>
+        <g class="nd"><rect x="380" y="100" width="120" height="42" rx="7" fill="white" stroke="#B7E4C7" stroke-width="1.5"/><text x="440" y="118" text-anchor="middle" font-size="11" font-family="Outfit,sans-serif">Normaliza e-mail</text><text x="440" y="133" text-anchor="middle" fill="#6B7280" font-size="9" font-family="Outfit,sans-serif">código Java</text></g>
+        <line x1="440" y1="142" x2="440" y2="160" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a5)"/>
+        <g class="nd"><polygon points="440,160 500,195 440,230 380,195" fill="#D4A853" stroke="#B8860B" stroke-width="1.5"/><text x="440" y="190" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">E-mail</text><text x="440" y="205" text-anchor="middle" fill="white" font-size="11" font-family="Outfit,sans-serif" font-weight="600">válido?</text></g>
+        <line x1="500" y1="195" x2="600" y2="195" stroke="#166534" stroke-width="1.5" marker-end="url(#a5g)"/>
+        <text x="550" y="187" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#166534" font-weight="700">SIM</text>
+        <g class="nd"><rect x="600" y="173" width="130" height="44" rx="7" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1.5"/><text x="665" y="191" text-anchor="middle" fill="#92400E" font-size="11" font-family="Outfit,sans-serif">Atualiza</text><text x="665" y="207" text-anchor="middle" fill="#92400E" font-size="11" font-family="Outfit,sans-serif">Banco de Dados</text></g>
+        <line x1="665" y1="217" x2="665" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a5)"/>
+        <g class="nd"><rect x="600" y="240" width="130" height="44" rx="7" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1.5"/><text x="665" y="258" text-anchor="middle" fill="#5B21B6" font-size="11" font-family="Outfit,sans-serif">Busca + Atualiza</text><text x="665" y="274" text-anchor="middle" fill="#5B21B6" font-size="11" font-family="Outfit,sans-serif">CRM</text></g>
+        <line x1="665" y1="284" x2="665" y2="307" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a5)"/>
+        <g class="nd"><rect x="600" y="307" width="130" height="44" rx="7" fill="#D8F3DC" stroke="#74C69D" stroke-width="1.5"/><text x="665" y="325" text-anchor="middle" fill="#1a3d2b" font-size="11" font-family="Outfit,sans-serif">Envia Menu</text><text x="665" y="341" text-anchor="middle" fill="#1a3d2b" font-size="11" font-family="Outfit,sans-serif">de Produtos</text></g>
+        <line x1="665" y1="351" x2="665" y2="374" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a5)"/>
+        <g class="nd"><rect x="605" y="374" width="120" height="36" rx="18" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1.5"/><text x="665" y="397" text-anchor="middle" fill="#991B1B" font-size="12" font-family="Outfit,sans-serif" font-weight="600">PARAR</text></g>
+        <line x1="440" y1="230" x2="440" y2="270" stroke="#991B1B" stroke-width="1.5" marker-end="url(#a5r)"/>
+        <text x="452" y="255" font-family="DM Mono,monospace" font-size="10" fill="#991B1B" font-weight="700">NÃO</text>
+        <g class="nd"><rect x="380" y="270" width="120" height="44" rx="7" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/><text x="440" y="288" text-anchor="middle" fill="#991B1B" font-size="11" font-family="Outfit,sans-serif">Solicita e-mail</text><text x="440" y="304" text-anchor="middle" fill="#991B1B" font-size="11" font-family="Outfit,sans-serif">novamente</text></g>
+        <line x1="440" y1="314" x2="440" y2="337" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#a5)"/>
+        <g class="nd"><rect x="380" y="337" width="120" height="36" rx="18" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1.5"/><text x="440" y="360" text-anchor="middle" fill="#991B1B" font-size="12" font-family="Outfit,sans-serif" font-weight="600">PARAR</text></g>
+      </svg></div>
+    </div>
+
+    <!-- BLOCK 6 -->
+    <div class="block" style="animation-delay:.3s">
+      <div class="block-hd"><div class="block-icon" style="background:var(--dew)">🤖</div>
+        <div><div class="block-title">6. Agentes Especialistas</div><div class="block-desc">A IA interpreta a intenção e roteia para o agente da modalidade correta</div></div></div>
+      <div style="display:flex;justify-content:center;margin-bottom:20px;">
+        <div style="background:var(--pine);color:#fff;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:600;border:2px solid var(--sage);">🤖 Agente interpreta modalidade solicitada</div>
+      </div>
+      <div class="agent-grid">
+        <div class="agent-card"><div style="font-size:24px;margin-bottom:7px">🏕️</div><div style="font-weight:600;font-size:12px;margin-bottom:5px">Colônia de Férias</div><span style="background:var(--sage);color:var(--forest);display:inline-block;padding:2px 8px;border-radius:20px;font-size:9px;font-weight:600">✓ Pronto</span></div>
+        <div class="agent-card"><div style="font-size:24px;margin-bottom:7px">🎉</div><div style="font-weight:600;font-size:12px;margin-bottom:5px">Aniversário</div><span style="background:var(--sage);color:var(--forest);display:inline-block;padding:2px 8px;border-radius:20px;font-size:9px;font-weight:600">✓ Pronto</span></div>
+        <div class="agent-card dim"><div style="font-size:24px;margin-bottom:7px">🎂</div><div style="font-weight:600;font-size:12px;margin-bottom:5px">15 Anos</div><span style="background:#374151;color:#9CA3AF;display:inline-block;padding:2px 8px;border-radius:20px;font-size:9px;font-weight:600">Em breve</span></div>
+        <div class="agent-card dim"><div style="font-size:24px;margin-bottom:7px">💍</div><div style="font-weight:600;font-size:12px;margin-bottom:5px">Casamento</div><span style="background:#374151;color:#9CA3AF;display:inline-block;padding:2px 8px;border-radius:20px;font-size:9px;font-weight:600">Em breve</span></div>
+        <div class="agent-card dim"><div style="font-size:24px;margin-bottom:7px">🎭</div><div style="font-weight:600;font-size:12px;margin-bottom:5px">Corporativo</div><span style="background:#374151;color:#9CA3AF;display:inline-block;padding:2px 8px;border-radius:20px;font-size:9px;font-weight:600">Em breve</span></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-top:20px;padding-top:18px;border-top:2px solid var(--dew)">
+        <div style="padding:9px 14px;border-radius:7px;font-size:11px;font-weight:500;min-width:110px;text-align:center;background:var(--pine);color:#fff;border:2px solid var(--sage)">Trata mensagem de saída</div>
+        <div style="color:var(--stone);font-size:15px;padding:0 6px">→</div>
+        <div style="padding:9px 14px;border-radius:7px;font-size:11px;font-weight:500;min-width:110px;text-align:center;background:#F3F4F6;color:var(--ink);border:2px solid #D1D5DB">Loop de envio</div>
+        <div style="color:var(--stone);font-size:15px;padding:0 6px">→</div>
+        <div style="padding:9px 14px;border-radius:7px;font-size:11px;font-weight:500;min-width:110px;text-align:center;background:var(--dew);color:var(--forest);border:2px solid var(--moss)">Envio final</div>
+        <div style="color:var(--stone);font-size:15px;padding:0 6px">→</div>
+        <div style="padding:9px 14px;border-radius:50px;font-size:11px;font-weight:600;min-width:80px;text-align:center;background:#FEE2E2;color:#991B1B;border:2px solid #FCA5A5">PARAR</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 2: CRM KANBAN -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="crm" style="scroll-margin-top:64px;background:#F8F6F2;">
+  <div class="sec-head" style="background:linear-gradient(180deg,#ede9e2 0%,#F8F6F2 100%);border-bottom:1px solid #e5e7eb;">
+    <div class="sec-inner">
+      <div class="sec-badge">📋 &nbsp;02</div>
+      <h2 class="sec-title">Pipeline de CRM</h2>
+      <p class="sec-desc">Cada lead qualificado pelo agente é automaticamente registrado no Agendor e avança pelo pipeline conforme o relacionamento evolui.</p>
+    </div>
+  </div>
+  <div style="max-width:1300px;margin:0 auto;padding:48px 48px 60px;">
+
+    <!-- Explicação do fluxo automático -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:36px;padding:16px 20px;background:#fff;border-radius:12px;border:1px solid #e5e7eb;border-left:4px solid var(--sage);">
+      <span style="font-size:22px">🤖</span>
+      <div style="font-size:13px;color:var(--stone);line-height:1.6;">
+        <strong style="color:var(--forest)">Integração automática:</strong> ao finalizar a qualificação no WhatsApp, o agente cria o contato + negócio no Agendor com todos os dados coletados — data, modalidade, número de convidados, tema e e-mail — sem intervenção manual.
+      </div>
+    </div>
+
+    <!-- KANBAN -->
+    <div class="kanban-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:start;">
+
+      <!-- COLUNA 1: Novo Lead -->
+      <div style="background:#fff;border-radius:14px;border:1px solid #e5e7eb;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);">
+        <div style="padding:12px 16px;background:var(--forest);display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:12px;font-weight:600;color:#fff;letter-spacing:.04em;">📥 Novo Lead</div>
+          <div style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;">AUTO</div>
+        </div>
+        <div style="padding:10px;display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:10px;color:var(--stone);padding:6px 8px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;">Criado pelo agente IA</div>
+          <div style="background:var(--dew);border-radius:9px;padding:12px;border-left:3px solid var(--sage);">
+            <div style="font-size:11px;font-weight:700;color:var(--forest);margin-bottom:4px;">🎉 Aniversário</div>
+            <div style="font-size:10px;color:var(--stone);line-height:1.6;">📅 15/02 · 70 crianças<br>🎨 Tema: Natureza<br>📧 evanz@gmail.com</div>
+            <div style="margin-top:8px;padding-top:6px;border-top:1px solid var(--mist);display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:9px;color:var(--stone);font-family:'DM Mono',monospace;">há 2h</span>
+              <span style="font-size:9px;background:var(--sage);color:var(--forest);padding:1px 6px;border-radius:8px;font-weight:600;">✓ CRM</span>
+            </div>
+          </div>
+          <div style="background:var(--dew);border-radius:9px;padding:12px;border-left:3px solid var(--sage);">
+            <div style="font-size:11px;font-weight:700;color:var(--forest);margin-bottom:4px;">🏕️ Colônia de Férias</div>
+            <div style="font-size:10px;color:var(--stone);line-height:1.6;">📅 Jul/2025 · 45 crianças<br>📧 maria@email.com</div>
+            <div style="margin-top:8px;padding-top:6px;border-top:1px solid var(--mist);display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:9px;color:var(--stone);font-family:'DM Mono',monospace;">há 5h</span>
+              <span style="font-size:9px;background:var(--sage);color:var(--forest);padding:1px 6px;border-radius:8px;font-weight:600;">✓ CRM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUNA 2: Contato Feito -->
+      <div style="background:#fff;border-radius:14px;border:1px solid #e5e7eb;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);">
+        <div style="padding:12px 16px;background:var(--pine);display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:12px;font-weight:600;color:#fff;letter-spacing:.04em;">📞 Contato Feito</div>
+          <div style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;">MANUAL</div>
+        </div>
+        <div style="padding:10px;display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:10px;color:var(--stone);padding:6px 8px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;">Equipe retorna o lead</div>
+          <div style="background:#F0FDF4;border-radius:9px;padding:12px;border-left:3px solid var(--pine);">
+            <div style="font-size:11px;font-weight:700;color:var(--forest);margin-bottom:4px;">💍 Casamento</div>
+            <div style="font-size:10px;color:var(--stone);line-height:1.6;">📅 Dez/2025 · 150 convidados<br>📧 ana@email.com</div>
+            <div style="margin-top:8px;padding-top:6px;border-top:1px solid #d1fae5;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:9px;color:var(--stone);font-family:'DM Mono',monospace;">ontem</span>
+              <span style="font-size:9px;background:#d1fae5;color:#065f46;padding:1px 6px;border-radius:8px;font-weight:600;">ligação ok</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUNA 3: Proposta Enviada -->
+      <div style="background:#fff;border-radius:14px;border:1px solid #e5e7eb;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);">
+        <div style="padding:12px 16px;background:var(--amber);display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:12px;font-weight:600;color:var(--forest);letter-spacing:.04em;">📄 Proposta Enviada</div>
+          <div style="background:rgba(0,0,0,.1);color:var(--forest);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;">2</div>
+        </div>
+        <div style="padding:10px;display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:10px;color:var(--stone);padding:6px 8px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;">Aguardando retorno</div>
+          <div style="background:#FFFBEB;border-radius:9px;padding:12px;border-left:3px solid var(--amber);">
+            <div style="font-size:11px;font-weight:700;color:var(--forest);margin-bottom:4px;">🎂 15 Anos</div>
+            <div style="font-size:10px;color:var(--stone);line-height:1.6;">📅 Abr/2025 · 80 convidados<br>🎨 Tema: K-pop</div>
+            <div style="margin-top:8px;padding-top:6px;border-top:1px solid #fde68a;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:9px;color:var(--stone);font-family:'DM Mono',monospace;">3 dias atrás</span>
+              <span style="font-size:9px;background:#fde68a;color:#92400e;padding:1px 6px;border-radius:8px;font-weight:600;">aguardando</span>
+            </div>
+          </div>
+          <div style="background:#FFFBEB;border-radius:9px;padding:12px;border-left:3px solid var(--amber);">
+            <div style="font-size:11px;font-weight:700;color:var(--forest);margin-bottom:4px;">🎭 Corporativo</div>
+            <div style="font-size:10px;color:var(--stone);line-height:1.6;">📅 Mar/2025 · 200 pessoas<br>🏢 Empresa: TechCo</div>
+            <div style="margin-top:8px;padding-top:6px;border-top:1px solid #fde68a;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:9px;color:var(--stone);font-family:'DM Mono',monospace;">1 semana</span>
+              <span style="font-size:9px;background:#fde68a;color:#92400e;padding:1px 6px;border-radius:8px;font-weight:600;">follow-up</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUNA 4: Negociação / Fechamento -->
+      <div style="background:#fff;border-radius:14px;border:1px solid #e5e7eb;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);">
+        <div style="padding:12px 16px;background:#7C3AED;display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:12px;font-weight:600;color:#fff;letter-spacing:.04em;">🤝 Negociação</div>
+          <div style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;">1</div>
+        </div>
+        <div style="padding:10px;display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:10px;color:var(--stone);padding:6px 8px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;">Quase fechando</div>
+          <div style="background:#F5F3FF;border-radius:9px;padding:12px;border-left:3px solid #7C3AED;">
+            <div style="font-size:11px;font-weight:700;color:#4C1D95;margin-bottom:4px;">🎉 Aniversário VIP</div>
+            <div style="font-size:10px;color:var(--stone);line-height:1.6;">📅 Mai/2025 · 120 convidados<br>💰 R$ 18.000 estimado</div>
+            <div style="margin-top:8px;padding-top:6px;border-top:1px solid #ddd6fe;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:9px;color:var(--stone);font-family:'DM Mono',monospace;">hoje</span>
+              <span style="font-size:9px;background:#ddd6fe;color:#4C1D95;padding:1px 6px;border-radius:8px;font-weight:600;">quente 🔥</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUNA 5: Ganho / Perdido -->
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <!-- Ganho -->
+        <div style="background:#fff;border-radius:14px;border:1px solid #e5e7eb;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);">
+          <div style="padding:10px 16px;background:#065f46;display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:12px;font-weight:600;color:#fff;letter-spacing:.04em;">✅ Ganho</div>
+            <div style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;">3</div>
+          </div>
+          <div style="padding:10px;display:flex;flex-direction:column;gap:6px;">
+            <div style="background:#ECFDF5;border-radius:8px;padding:10px;border-left:3px solid #065f46;">
+              <div style="font-size:11px;font-weight:700;color:#065f46;margin-bottom:2px;">🏕️ Colônia Jan</div>
+              <div style="font-size:10px;color:var(--stone);">💰 R$ 12.500 · fechado</div>
+            </div>
+            <div style="background:#ECFDF5;border-radius:8px;padding:10px;border-left:3px solid #065f46;">
+              <div style="font-size:11px;font-weight:700;color:#065f46;margin-bottom:2px;">🎉 Aniversário</div>
+              <div style="font-size:10px;color:var(--stone);">💰 R$ 8.200 · fechado</div>
+            </div>
+          </div>
+        </div>
+        <!-- Perdido -->
+        <div style="background:#fff;border-radius:14px;border:1px solid #e5e7eb;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);">
+          <div style="padding:10px 16px;background:#7f1d1d;display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:12px;font-weight:600;color:#fff;letter-spacing:.04em;">❌ Perdido</div>
+            <div style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;">1</div>
+          </div>
+          <div style="padding:10px;display:flex;flex-direction:column;gap:6px;">
+            <div style="background:#FEF2F2;border-radius:8px;padding:10px;border-left:3px solid #991B1B;">
+              <div style="font-size:11px;font-weight:700;color:#991B1B;margin-bottom:2px;">💍 Casamento</div>
+              <div style="font-size:10px;color:var(--stone);">Motivo: orçamento</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Métricas do pipeline -->
+    <div class="resp-grid-4" style="margin-top:28px;">
+      <div style="background:#fff;border-radius:12px;padding:16px 20px;border:1px solid #e5e7eb;text-align:center;">
+        <div style="font-size:28px;font-weight:700;color:var(--forest);line-height:1;font-family:'DM Serif Display',serif;">8</div>
+        <div style="font-size:11px;color:var(--stone);margin-top:4px;text-transform:uppercase;letter-spacing:.06em;">Negócios ativos</div>
+      </div>
+      <div style="background:#fff;border-radius:12px;padding:16px 20px;border:1px solid #e5e7eb;text-align:center;">
+        <div style="font-size:28px;font-weight:700;color:var(--pine);line-height:1;font-family:'DM Serif Display',serif;">R$&nbsp;38k</div>
+        <div style="font-size:11px;color:var(--stone);margin-top:4px;text-transform:uppercase;letter-spacing:.06em;">Pipeline total</div>
+      </div>
+      <div style="background:#fff;border-radius:12px;padding:16px 20px;border:1px solid #e5e7eb;text-align:center;">
+        <div style="font-size:28px;font-weight:700;color:#065f46;line-height:1;font-family:'DM Serif Display',serif;">75%</div>
+        <div style="font-size:11px;color:var(--stone);margin-top:4px;text-transform:uppercase;letter-spacing:.06em;">Taxa de conversão</div>
+      </div>
+      <div style="background:#fff;border-radius:12px;padding:16px 20px;border:1px solid #e5e7eb;text-align:center;">
+        <div style="font-size:28px;font-weight:700;color:var(--amber);line-height:1;font-family:'DM Serif Display',serif;">~2d</div>
+        <div style="font-size:11px;color:var(--stone);margin-top:4px;text-transform:uppercase;letter-spacing:.06em;">Tempo médio resposta</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 3: CONVERSACIONAL -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="conversacional" style="scroll-margin-top:64px;background:#f0ede8;">
+  <div class="sec-head mid">
+    <div class="sec-inner">
+      <div class="sec-badge alt">💬 &nbsp;04</div>
+      <h2 class="sec-title">Fluxo Conversacional</h2>
+      <p class="sec-desc">Simulação fiel da conversa de atendimento — da abordagem inicial à qualificação completa do lead.</p>
+    </div>
+  </div>
+  <div class="canvas-mid">
+    <div class="wa-layout">
+      <!-- Sidebar -->
+      <div style="position:sticky;top:80px;">
+        <div class="sidebar-card">
+          <div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--forest);margin-bottom:12px">📍 Fases do Atendimento</div>
+          <div style="display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:7px;margin-bottom:3px"><div style="width:9px;height:9px;border-radius:50%;background:#52B788;flex-shrink:0"></div><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--stone);min-width:16px">1</span><span style="font-size:12px">Boas-vindas</span></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:7px;margin-bottom:3px"><div style="width:9px;height:9px;border-radius:50%;background:#74C69D;flex-shrink:0"></div><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--stone);min-width:16px">2</span><span style="font-size:12px">Captura de E-mail</span></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:7px;margin-bottom:3px"><div style="width:9px;height:9px;border-radius:50%;background:#D4A853;flex-shrink:0"></div><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--stone);min-width:16px">3</span><span style="font-size:12px">Apresentar Produtos</span></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:7px;margin-bottom:3px"><div style="width:9px;height:9px;border-radius:50%;background:#C9705A;flex-shrink:0"></div><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--stone);min-width:16px">4</span><span style="font-size:12px">Agente de Aniversário</span></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:7px;margin-bottom:3px"><div style="width:9px;height:9px;border-radius:50%;background:#C9705A;flex-shrink:0"></div><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--stone);min-width:16px">4b</span><span style="font-size:12px">Tira-dúvidas</span></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:7px;margin-bottom:3px"><div style="width:9px;height:9px;border-radius:50%;background:#2D6A4F;flex-shrink:0"></div><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--stone);min-width:16px">5</span><span style="font-size:12px">Qualificação</span></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:7px;margin-bottom:3px"><div style="width:9px;height:9px;border-radius:50%;background:#1a3d2b;flex-shrink:0"></div><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--stone);min-width:16px">6</span><span style="font-size:12px">Encerramento</span></div>
+        </div>
+        <div class="sidebar-card">
+          <div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--forest);margin-bottom:12px">📊 Dados da Conversa</div>
+          <div class="stat-grid">
+            <div class="stat-box"><div style="font-size:18px;font-weight:700;color:var(--forest);line-height:1">27</div><div style="font-size:10px;color:var(--stone);margin-top:3px;text-transform:uppercase;letter-spacing:.05em">Mensagens</div></div>
+            <div class="stat-box"><div style="font-size:18px;font-weight:700;color:var(--forest);line-height:1">~5min</div><div style="font-size:10px;color:var(--stone);margin-top:3px;text-transform:uppercase;letter-spacing:.05em">Duração</div></div>
+            <div class="stat-box"><div style="font-size:18px;font-weight:700;color:var(--forest);line-height:1">6</div><div style="font-size:10px;color:var(--stone);margin-top:3px;text-transform:uppercase;letter-spacing:.05em">Fases</div></div>
+            <div class="stat-box"><div style="font-size:18px;font-weight:700;color:var(--forest);line-height:1">5</div><div style="font-size:10px;color:var(--stone);margin-top:3px;text-transform:uppercase;letter-spacing:.05em">Coletas</div></div>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--forest);margin-bottom:12px">🎯 Lead Qualificado</div>
+          <div style="font-size:12px;color:var(--stone);line-height:1.8">Modalidade: <strong style="color:var(--forest)">Aniversário</strong></div>
+          <div style="font-size:12px;color:var(--stone);line-height:1.8">Data: <strong style="color:var(--forest)">15/02</strong></div>
+          <div style="font-size:12px;color:var(--stone);line-height:1.8">Crianças: <strong style="color:var(--forest)">70</strong></div>
+          <div style="font-size:12px;color:var(--stone);line-height:1.8">Adultos: <strong style="color:var(--forest)">5</strong></div>
+          <div style="font-size:12px;color:var(--stone);line-height:1.8">Tema: <strong style="color:var(--forest)">Natureza</strong></div>
+          <div style="font-size:12px;color:var(--stone);line-height:1.8">E-mail: <strong style="color:var(--forest)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afcad9cec1d5efc8c2cec6c381ccc0c2">[email&#160;protected]</a></strong></div>
+        </div>
+      </div>
+      <!-- Phone -->
+      <div style="display:flex;justify-content:center;">
+        <div class="phone">
+          <div class="wa-head">
+            <div style="width:38px;height:38px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🌲</div>
+            <div style="flex:1"><div style="color:#fff;font-size:14px;font-weight:600">Agente Pinetree</div><div style="color:rgba(255,255,255,.7);font-size:11px">online</div></div>
+            <div style="color:rgba(255,255,255,.8);display:flex;gap:14px;font-size:17px"><span>📹</span><span>📞</span><span>⋮</span></div>
+          </div>
+          <div class="wa-body">
+            <div class="phase-div"><div class="phase-pill" style="background:#52B788;color:#1a3d2b">Fase 1 · Boas-vindas</div></div>
+            <div class="bubble-user"><div class="bbl-user">oi<div class="btime">15:35 <span style="color:#34B7F1">✓✓</span></div></div></div>
+            <div class="bubble-bot" style="margin-top:8px"><div class="bbl-bot" style="border-radius:0 8px 8px 8px"><div style="font-size:11px;font-weight:700;color:#2D6A4F;margin-bottom:3px">🤖 Agente Pinetree</div>Olá! Bem-vindo à Pinetree Farm!<div class="btime">15:35</div></div></div>
+            <div class="bubble-bot"><div class="bbl-bot" style="border-radius:8px">✨ Antes de seguirmos, conheça nossas redes!<br><span style="color:#2D6A4F;font-size:12px">📸 instagram.com/pine_tree_farm/</span><br><span style="color:#2D6A4F;font-size:12px">🌐 pinetreefarm.com.br</span><div class="btime">15:35</div></div></div>
+            <div class="phase-div"><div class="phase-pill" style="background:#74C69D;color:#1a3d2b">Fase 2 · Captura de E-mail</div></div>
+            <div class="bubble-bot" style="margin-top:8px"><div class="bbl-bot" style="border-radius:0 8px 8px 8px"><div style="font-size:11px;font-weight:700;color:#2D6A4F;margin-bottom:3px">🤖 Agente Pinetree</div>📧 Para continuarmos, poderia nos fornecer seu melhor e-mail?<div class="btime">15:35</div></div></div>
+            <div class="bubble-user"><div class="bbl-user"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ce9faede2f6ccebe1ede5e0a2efe3e1">[email&#160;protected]</a><div class="btime">15:35 <span style="color:#34B7F1">✓✓</span></div></div></div>
+            <div class="phase-div"><div class="phase-pill" style="background:#D4A853;color:#1a3d2b">Fase 3 · Apresentar Produtos</div></div>
+            <div class="bubble-bot" style="margin-top:8px"><div class="bbl-bot" style="border-radius:0 8px 8px 8px"><div style="font-size:11px;font-weight:700;color:#2D6A4F;margin-bottom:3px">🤖 Agente Pinetree</div>Perfeito! Está interessado em qual serviço?<div style="margin-top:6px"><div class="menu-item">🏕️ Colônia de Férias</div><div class="menu-item">🎉 Aniversário</div><div class="menu-item">🎂 Aniversário de 15 anos</div><div class="menu-item">💍 Casamento</div><div class="menu-item">🎭 Evento corporativo</div></div><div class="btime">15:35</div></div></div>
+            <div class="bubble-user"><div class="bbl-user">aniversario<div class="btime">15:36 <span style="color:#34B7F1">✓✓</span></div></div></div>
+            <div class="phase-div"><div class="phase-pill" style="background:#C9705A;color:#fff">Fase 4 · Agente de Aniversário</div></div>
+            <div class="bubble-bot" style="margin-top:8px"><div class="bbl-bot" style="border-radius:0 8px 8px 8px"><div style="font-size:11px;font-weight:700;color:#2D6A4F;margin-bottom:3px">🤖 Agente Pinetree</div>Que bacana! Tenho certeza que vai adorar essa experiência!<div class="btime">15:36</div></div></div>
+            <div class="bubble-bot"><div class="bbl-bot" style="border-radius:8px">🎉 <strong>Estrutura:</strong> Ambiente ao ar livre com infraestrutura completa.<div class="btime">15:36</div></div></div>
+            <div class="bubble-bot"><div class="bbl-bot" style="border-radius:8px">🎂 <strong>Alimentação:</strong> Doces, salgados, bolo e buffet conforme o pacote.<div class="btime">15:37</div></div></div>
+            <div class="bubble-bot"><div class="bbl-bot" style="border-radius:8px">Tem alguma dúvida ou posso preparar uma proposta personalizada?<div class="btime">15:37</div></div></div>
+            <div class="phase-div"><div class="phase-pill" style="background:#C9705A;color:#fff">Fase 4b · Tira-dúvidas</div></div>
+            <div class="bubble-user"><div class="bbl-user">quais os temas que posso escolher?<div class="btime">15:39 <span style="color:#34B7F1">✓✓</span></div></div></div>
+            <div class="bubble-bot" style="margin-top:8px"><div class="bbl-bot" style="border-radius:0 8px 8px 8px"><div style="font-size:11px;font-weight:700;color:#2D6A4F;margin-bottom:3px">🤖 Agente Pinetree</div>Temos <strong>Natureza, Harry Potter e Princesas</strong>. Para outros, indicamos parceiros afiliados 🎨<div class="btime">15:39</div></div></div>
+            <div class="phase-div"><div class="phase-pill" style="background:#2D6A4F;color:#fff">Fase 5 · Qualificação do Lead</div></div>
+            <div class="bubble-user"><div class="bbl-user">bora lá! quero a proposta<div class="btime">15:45 <span style="color:#34B7F1">✓✓</span></div></div></div>
+            <div class="bubble-bot" style="margin-top:8px"><div class="bbl-bot" style="border-radius:0 8px 8px 8px"><div style="font-size:11px;font-weight:700;color:#2D6A4F;margin-bottom:3px">🤖 Agente Pinetree</div>📅 Qual a data desejada?<div class="btime">15:46</div></div></div>
+            <div class="bubble-user"><div class="bbl-user">15 de fevereiro<div class="btime">15:47 <span style="color:#34B7F1">✓✓</span></div></div></div>
+            <div class="bubble-bot"><div class="bbl-bot" style="border-radius:8px">🎂 Idade do aniversariante?<div class="btime">15:47</div></div></div>
+            <div class="bubble-user"><div class="bbl-user">13<div class="btime">15:47 <span style="color:#34B7F1">✓✓</span></div></div></div>
+            <div class="bubble-bot"><div class="bbl-bot" style="border-radius:8px">👶 Quantas crianças?<div class="btime">15:47</div></div></div>
+            <div class="bubble-user"><div class="bbl-user">são 70<div class="btime">15:47 <span style="color:#34B7F1">✓✓</span></div></div></div>
+            <div class="bubble-bot"><div class="bbl-bot" style="border-radius:8px">👨‍👩‍👧‍👦 Quantos adultos?<div class="btime">15:48</div></div></div>
+            <div class="bubble-user"><div class="bbl-user">5<div class="btime">15:53 <span style="color:#34B7F1">✓✓</span></div></div></div>
+            <div class="bubble-bot"><div class="bbl-bot" style="border-radius:8px">🎨 Tema preferido?<div class="btime">15:53</div></div></div>
+            <div class="bubble-user"><div class="bbl-user">pode ser natureza<div class="btime">15:54 <span style="color:#34B7F1">✓✓</span></div></div></div>
+            <div class="bubble-bot" style="margin-top:8px"><div class="bbl-bot" style="border-radius:0 8px 8px 8px"><div style="font-size:11px;font-weight:700;color:#2D6A4F;margin-bottom:3px">🤖 Agente Pinetree</div>Ótimo! Confirmando:<br>📅 15/02 · 🎂 13 anos · 👶 70 crianças · 👨‍👩‍👧‍👦 5 adultos · 🎨 Natureza<br><br>Está correto?<div class="btime">15:54</div></div></div>
+            <div class="bubble-user"><div class="bbl-user">tudo certo<div class="btime">15:57 <span style="color:#34B7F1">✓✓</span></div></div></div>
+            <div class="phase-div"><div class="phase-pill" style="background:#1a3d2b;color:#fff">Fase 6 · Encerramento</div></div>
+            <div class="bubble-bot" style="margin-top:8px"><div class="bbl-bot" style="border-radius:0 8px 8px 8px"><div style="font-size:11px;font-weight:700;color:#2D6A4F;margin-bottom:3px">🤖 Agente Pinetree</div>Perfeito! Coletamos tudo 🎉<div class="btime">15:57</div></div></div>
+            <div class="bubble-bot"><div class="bbl-bot" style="border-radius:8px">Nossa equipe entrará em contato com a proposta personalizada. 📞📧<div class="btime">15:57</div></div></div>
+            <div style="height:8px"></div>
+          </div>
+          <div class="wa-foot">
+            <span style="font-size:20px;color:#555">😊</span>
+            <div style="flex:1;background:#fff;border-radius:24px;padding:8px 16px;font-size:14px;color:#999">Mensagem</div>
+            <span style="font-size:18px;color:#555">📎</span>
+            <div style="width:38px;height:38px;background:#075E54;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px">🎤</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 4: EVALUATION -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="evaluation" style="scroll-margin-top:64px;background:var(--parchment);">
+  <div class="sec-head light">
+    <div class="sec-inner">
+      <div class="sec-badge">🧪 &nbsp;03</div>
+      <h2 class="sec-title">Relatório de Evaluation</h2>
+      <p class="sec-desc">Resultado dos testes aplicados ao agente antes do go-live — precisão de respostas, fluxo de qualificação e aderência ao roteiro.</p>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:48px 48px 60px;">
+
+    <!-- Score hero -->
+    <div class="resp-grid-3" style="margin-bottom:40px;">
+      <div style="background:var(--forest);border-radius:16px;padding:32px 24px;text-align:center;color:#fff;grid-column:span 1;">
+        <div style="font-size:56px;font-weight:700;font-family:'DM Serif Display',serif;line-height:1;color:var(--sage);">50+</div>
+        <div style="font-size:13px;color:var(--moss);margin-top:8px;text-transform:uppercase;letter-spacing:.1em;font-weight:300;">Testes realizados</div>
+        <div style="margin-top:12px;font-size:11px;color:rgba(255,255,255,.4);font-family:'DM Mono',monospace;">colônia + aniversário</div>
+      </div>
+      <div style="background:var(--forest);border-radius:16px;padding:32px 24px;text-align:center;color:#fff;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 120%,rgba(82,183,136,.25) 0%,transparent 70%);pointer-events:none;"></div>
+        <div style="font-size:56px;font-weight:700;font-family:'DM Serif Display',serif;line-height:1;color:var(--sage);">8.5</div>
+        <div style="font-size:13px;color:var(--moss);margin-top:8px;text-transform:uppercase;letter-spacing:.1em;font-weight:300;">Nota média geral</div>
+        <div style="margin-top:12px;display:flex;justify-content:center;gap:3px;">
+          <span style="font-size:16px">⭐</span><span style="font-size:16px">⭐</span><span style="font-size:16px">⭐</span><span style="font-size:16px">⭐</span><span style="font-size:16px;opacity:.5">⭐</span>
+        </div>
+      </div>
+      <div style="background:var(--forest);border-radius:16px;padding:32px 24px;text-align:center;color:#fff;">
+        <div style="font-size:56px;font-weight:700;font-family:'DM Serif Display',serif;line-height:1;color:var(--sage);">2</div>
+        <div style="font-size:13px;color:var(--moss);margin-top:8px;text-transform:uppercase;letter-spacing:.1em;font-weight:300;">Agentes testados</div>
+        <div style="margin-top:12px;font-size:11px;color:rgba(255,255,255,.4);font-family:'DM Mono',monospace;">prontos para produção</div>
+      </div>
+    </div>
+
+    <!-- Critérios avaliados -->
+    <h3 style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--forest);margin-bottom:16px;">Critérios Avaliados</h3>
+    <div class="resp-grid-2" style="margin-bottom:36px;">
+
+      <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid #e5e7eb;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="font-size:13px;font-weight:600;color:var(--forest);">📋 Qualificação completa</div>
+          <div style="font-size:14px;font-weight:700;color:var(--pine);font-family:'DM Mono',monospace;">9.0</div>
+        </div>
+        <div style="background:#e5e7eb;border-radius:4px;height:6px;overflow:hidden;">
+          <div style="width:90%;height:100%;background:var(--sage);border-radius:4px;transition:width .8s ease;"></div>
+        </div>
+        <div style="font-size:11px;color:var(--stone);margin-top:8px;">Coleta todos os dados necessários para gerar uma proposta personalizada.</div>
+      </div>
+
+      <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid #e5e7eb;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="font-size:13px;font-weight:600;color:var(--forest);">💬 Naturalidade da conversa</div>
+          <div style="font-size:14px;font-weight:700;color:var(--pine);font-family:'DM Mono',monospace;">8.5</div>
+        </div>
+        <div style="background:#e5e7eb;border-radius:4px;height:6px;overflow:hidden;">
+          <div style="width:85%;height:100%;background:var(--sage);border-radius:4px;"></div>
+        </div>
+        <div style="font-size:11px;color:var(--stone);margin-top:8px;">Linguagem fluida, sem robotismo evidente. Tom adequado à marca Pine Tree.</div>
+      </div>
+
+      <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid #e5e7eb;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="font-size:13px;font-weight:600;color:var(--forest);">🎯 Aderência ao roteiro</div>
+          <div style="font-size:14px;font-weight:700;color:var(--pine);font-family:'DM Mono',monospace;">8.8</div>
+        </div>
+        <div style="background:#e5e7eb;border-radius:4px;height:6px;overflow:hidden;">
+          <div style="width:88%;height:100%;background:var(--sage);border-radius:4px;"></div>
+        </div>
+        <div style="font-size:11px;color:var(--stone);margin-top:8px;">Segue as fases na sequência correta sem desvios indesejados.</div>
+      </div>
+
+      <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid #e5e7eb;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="font-size:13px;font-weight:600;color:var(--forest);">🔗 Integração CRM</div>
+          <div style="font-size:14px;font-weight:700;color:var(--pine);font-family:'DM Mono',monospace;">9.2</div>
+        </div>
+        <div style="background:#e5e7eb;border-radius:4px;height:6px;overflow:hidden;">
+          <div style="width:92%;height:100%;background:var(--sage);border-radius:4px;"></div>
+        </div>
+        <div style="font-size:11px;color:var(--stone);margin-top:8px;">Dados gravados corretamente no Agendor em 100% dos testes validados.</div>
+      </div>
+
+      <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid #e5e7eb;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="font-size:13px;font-weight:600;color:var(--forest);">⚡ Tempo de resposta</div>
+          <div style="font-size:14px;font-weight:700;color:var(--pine);font-family:'DM Mono',monospace;">8.0</div>
+        </div>
+        <div style="background:#e5e7eb;border-radius:4px;height:6px;overflow:hidden;">
+          <div style="width:80%;height:100%;background:var(--amber);border-radius:4px;"></div>
+        </div>
+        <div style="font-size:11px;color:var(--stone);margin-top:8px;">Média de 2–4s por resposta. Oportunidade de melhoria com cache de contexto.</div>
+      </div>
+
+      <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid #e5e7eb;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="font-size:13px;font-weight:600;color:var(--forest);">🛡️ Tratamento de edge cases</div>
+          <div style="font-size:14px;font-weight:700;color:var(--pine);font-family:'DM Mono',monospace;">7.5</div>
+        </div>
+        <div style="background:#e5e7eb;border-radius:4px;height:6px;overflow:hidden;">
+          <div style="width:75%;height:100%;background:var(--amber);border-radius:4px;"></div>
+        </div>
+        <div style="font-size:11px;color:var(--stone);margin-top:8px;">Respostas fora do escopo tratadas. Próximas versões ampliam cobertura.</div>
+      </div>
+
+    </div>
+
+    <!-- Observações finais -->
+    <div class="resp-grid-2" style="gap:16px;">
+      <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e5e7eb;border-left:4px solid var(--sage);">
+        <div style="font-weight:600;font-size:13px;color:var(--forest);margin-bottom:8px;">✅ Pontos fortes</div>
+        <ul style="font-size:12px;color:var(--stone);line-height:1.8;padding-left:16px;">
+          <li>Qualificação completa em ~5 minutos</li>
+          <li>100% dos dados gravados no CRM</li>
+          <li>Tira-dúvidas contextual funcionando bem</li>
+          <li>Menu de produtos claro e objetivo</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e5e7eb;border-left:4px solid var(--amber);">
+        <div style="font-weight:600;font-size:13px;color:var(--forest);margin-bottom:8px;">🔧 Oportunidades de melhoria</div>
+        <ul style="font-size:12px;color:var(--stone);line-height:1.8;padding-left:16px;">
+          <li>Reduzir latência nas respostas longas</li>
+          <li>Ampliar base de FAQs por modalidade</li>
+          <li>Melhorar tratamento de inputs inválidos</li>
+          <li>Adicionar confirmação de agendamento</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- SEÇÃO 5: CUSTOS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="custos" style="scroll-margin-top:64px;background:#F8F6F2;">
+  <div class="sec-head" style="background:linear-gradient(180deg,#ede9e2 0%,#F8F6F2 100%);border-bottom:1px solid #e5e7eb;">
+    <div class="sec-inner">
+      <div class="sec-badge">💰 &nbsp;05</div>
+      <h2 class="sec-title">Projeção de Custos</h2>
+      <p class="sec-desc">Estimativa de custo operacional baseada no volume de conversas — modelo GPT-4o-mini com média de 27 mensagens por atendimento.</p>
+    </div>
+  </div>
+  <div style="max-width:1100px;margin:0 auto;padding:48px 48px 60px;">
+
+    <!-- Premissas -->
+    <div class="resp-cols-4" style="background:#fff;border-radius:14px;border:1px solid #e5e7eb;padding:20px 24px;margin-bottom:32px;">
+      <div>
+        <div style="font-size:10px;color:var(--stone);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:'DM Mono',monospace;">Modelo IA</div>
+        <div style="font-size:14px;font-weight:600;color:var(--forest);">GPT-4o-mini</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--stone);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:'DM Mono',monospace;">Msgs / conversa</div>
+        <div style="font-size:14px;font-weight:600;color:var(--forest);">~27 mensagens</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--stone);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:'DM Mono',monospace;">Tokens / msg</div>
+        <div style="font-size:14px;font-weight:600;color:var(--forest);">~600 tokens</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--stone);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:'DM Mono',monospace;">Custo / 1M tokens</div>
+        <div style="font-size:14px;font-weight:600;color:var(--forest);">$0,15 input · $0,60 output</div>
+      </div>
+    </div>
+
+    <!-- Simulador interativo -->
+    <div style="background:var(--forest);border-radius:16px;padding:32px;margin-bottom:32px;color:#fff;">
+      <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#fff;margin-bottom:6px;">Simulador de Volume</div>
+      <div style="font-size:12px;color:var(--moss);margin-bottom:28px;">Arraste o slider para simular o custo por volume de conversas mensais</div>
+
+      <input type="range" id="volSlider" min="50" max="2000" step="50" value="300"
+        style="width:100%;accent-color:var(--sage);height:6px;cursor:pointer;margin-bottom:20px;">
+
+      <div class="resp-grid-3" style="gap:16px;margin-top:8px;">
+        <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:20px;text-align:center;border:1px solid rgba(82,183,136,.2);">
+          <div style="font-size:11px;color:var(--moss);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Conversas / mês</div>
+          <div id="vol-conversas" style="font-size:36px;font-weight:700;font-family:'DM Serif Display',serif;color:var(--sage);line-height:1;">300</div>
+        </div>
+        <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:20px;text-align:center;border:1px solid rgba(82,183,136,.2);">
+          <div style="font-size:11px;color:var(--moss);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Custo / atendimento</div>
+          <div id="vol-unit" style="font-size:36px;font-weight:700;font-family:'DM Serif Display',serif;color:var(--sage);line-height:1;">R$0,15</div>
+        </div>
+        <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:20px;text-align:center;border:1px solid rgba(255,255,255,.15);">
+          <div style="font-size:11px;color:var(--moss);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Custo total / mês</div>
+          <div id="vol-total" style="font-size:36px;font-weight:700;font-family:'DM Serif Display',serif;color:#fff;line-height:1;">R$45</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabela de cenários -->
+    <h3 style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--forest);margin-bottom:16px;">Cenários de Referência</h3>
+    <div style="background:#fff;border-radius:14px;border:1px solid #e5e7eb;overflow:hidden;">
+      <div class="resp-cost-table-row" style="background:var(--forest);padding:12px 20px;">
+        <div style="font-size:11px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:.06em;">Cenário</div>
+        <div style="font-size:11px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:.06em;text-align:center;">Conversas/mês</div>
+        <div style="font-size:11px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:.06em;text-align:center;">Custo/atendimento</div>
+        <div style="font-size:11px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:.06em;text-align:center;">Total/mês (R$)</div>
+        <div style="font-size:11px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:.06em;text-align:center;">Total/ano (R$)</div>
+      </div>
+      <div id="cost-table">
+        <!-- rows inserted by JS -->
+      </div>
+    </div>
+
+    <div style="margin-top:16px;padding:14px 18px;background:#fff;border-radius:10px;border:1px solid #e5e7eb;border-left:4px solid var(--stone);font-size:12px;color:var(--stone);line-height:1.7;">
+      <strong style="color:var(--forest);">ℹ️ Como foi calculado:</strong> cada conversa gera ~27 trocas de mensagem × ~600 tokens médios = ~16.200 tokens/conversa. Usando os preços do GPT-4o-mini ($0,15/1M input + $0,60/1M output, proporção 70/30), o custo por conversa é aproximadamente <strong>US$0,027</strong> ≈ <strong>R$0,15</strong> na cotação atual. Valores não incluem infraestrutura n8n, WhatsApp Business API nem hospedagem.
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── COST SIMULATOR ──
+const USD_BRL = 5.70;
+const TOKENS_PER_CONV = 16200;
+const INPUT_RATIO = 0.7;
+const OUTPUT_RATIO = 0.3;
+const PRICE_INPUT  = 0.15 / 1_000_000;
+const PRICE_OUTPUT = 0.60 / 1_000_000;
+
+function calcCost(conversations) {
+  const tokensTotal = conversations * TOKENS_PER_CONV;
+  const usd = tokensTotal * (INPUT_RATIO * PRICE_INPUT + OUTPUT_RATIO * PRICE_OUTPUT);
+  const brl = usd * USD_BRL;
+  const perConv = brl / conversations;
+  return { total: brl, perConv };
+}
+
+function fmt(n) {
+  return n < 10 ? 'R$' + n.toFixed(2) : 'R$' + Math.round(n).toLocaleString('pt-BR');
+}
+
+const slider = document.getElementById('volSlider');
+const elConv  = document.getElementById('vol-conversas');
+const elUnit  = document.getElementById('vol-unit');
+const elTotal = document.getElementById('vol-total');
+
+function updateSlider() {
+  const v = parseInt(slider.value);
+  const { total, perConv } = calcCost(v);
+  elConv.textContent  = v.toLocaleString('pt-BR');
+  elUnit.textContent  = 'R$' + perConv.toFixed(2);
+  elTotal.textContent = fmt(total);
+}
+slider.addEventListener('input', updateSlider);
+updateSlider();
+
+// Tabela de cenários
+const SCENARIOS = [
+  { label:'🌱 Lançamento',   conv:100,  bg:'#fff' },
+  { label:'📈 Crescimento',  conv:300,  bg:'#FAFAFA' },
+  { label:'🚀 Escala',       conv:600,  bg:'#fff' },
+  { label:'🏆 Alto volume',  conv:1200, bg:'#FAFAFA' },
+  { label:'🌐 Enterprise',   conv:2000, bg:'#fff' },
+];
+const tbody = document.getElementById('cost-table');
+SCENARIOS.forEach(s => {
+  const { total, perConv } = calcCost(s.conv);
+  const row = document.createElement('div');
+  row.className = 'resp-cost-table-row';
+  row.style.cssText = `padding:12px 20px;border-bottom:1px solid #f0f0f0;background:${s.bg};`;
+  row.innerHTML = `
+    <div style="font-size:13px;font-weight:500;color:var(--forest);">${s.label}</div>
+    <div style="font-size:13px;text-align:center;font-family:'DM Mono',monospace;color:var(--stone);">${s.conv.toLocaleString('pt-BR')}</div>
+    <div style="font-size:13px;text-align:center;font-family:'DM Mono',monospace;color:var(--stone);">R$${perConv.toFixed(2)}</div>
+    <div style="font-size:13px;text-align:center;font-weight:600;color:var(--forest);">${fmt(total)}</div>
+    <div style="font-size:13px;text-align:center;font-weight:700;color:var(--pine);">${fmt(total * 12)}</div>
+  `;
+  tbody.appendChild(row);
+});
+</script>
+
+<!-- SEÇÃO 6: PLANO DE AÇÃO -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="plano" style="scroll-margin-top:64px;">
+  <div class="sec-head dark">
+    <div class="sec-inner" style="max-width:1200px">
+      <div class="sec-badge">📅 &nbsp;06</div>
+      <h2 class="sec-title">Plano de Ação</h2>
+      <p class="sec-desc">Cronograma de implementação das 5 modalidades — 2 entregues, 3 em desenvolvimento nas próximas 2 semanas.</p>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:60px 48px 80px">
+    <h3 style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--forest);margin-bottom:20px">📍 Status dos Agentes</h3>
+    <div class="status-grid">
+      <div class="status-card" style="border:2px solid var(--sage);background:#F0FDF4"><div style="font-size:28px;margin-bottom:8px">🏕️</div><div style="font-weight:600;font-size:13px;color:var(--forest);margin-bottom:6px">Colônia de Férias</div><span style="background:var(--sage);color:var(--forest);display:inline-block;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:600">✓ Concluído</span></div>
+      <div class="status-card" style="border:2px solid var(--sage);background:#F0FDF4"><div style="font-size:28px;margin-bottom:8px">🎉</div><div style="font-weight:600;font-size:13px;color:var(--forest);margin-bottom:6px">Aniversário</div><span style="background:var(--sage);color:var(--forest);display:inline-block;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:600">✓ Concluído</span></div>
+      <div class="status-card" style="border:2px solid var(--amber);background:#FFFBEB"><div style="font-size:28px;margin-bottom:8px">🎂</div><div style="font-weight:600;font-size:13px;color:var(--forest);margin-bottom:6px">15 Anos</div><span style="background:var(--amber);color:var(--forest);display:inline-block;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:600">Em progresso</span></div>
+      <div class="status-card" style="border:2px solid #E5E7EB;background:#fff"><div style="font-size:28px;margin-bottom:8px">💍</div><div style="font-weight:600;font-size:13px;color:var(--forest);margin-bottom:6px">Casamento</div><span style="background:#E5E7EB;color:var(--stone);display:inline-block;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:600">Planejado</span></div>
+      <div class="status-card" style="border:2px solid #E5E7EB;background:#fff"><div style="font-size:28px;margin-bottom:8px">🎭</div><div style="font-weight:600;font-size:13px;color:var(--forest);margin-bottom:6px">Corporativo</div><span style="background:#E5E7EB;color:var(--stone);display:inline-block;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:600">Planejado</span></div>
+    </div>
+    <h3 style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--forest);margin-bottom:20px">📅 Cronograma — 3 Semanas</h3>
+    <div class="gantt">
+      <div class="gantt-head">
+        <div style="padding:10px 18px;font-size:10px;font-weight:600;color:var(--moss);letter-spacing:.1em;text-transform:uppercase;border-right:1px solid rgba(255,255,255,.08);display:flex;align-items:center">Atividade</div>
+        <div style="padding:10px 16px;font-size:11px;font-weight:600;color:var(--amber);font-family:'DM Mono',monospace;border-right:1px solid rgba(255,255,255,.08);display:flex;align-items:center">● Semana 0 · 2–5 Mar</div>
+        <div style="padding:10px 16px;font-size:11px;font-weight:600;color:var(--amber);font-family:'DM Mono',monospace;border-right:1px solid rgba(255,255,255,.08);display:flex;align-items:center">● Semana 1 · 9–12 Mar</div>
+        <div style="padding:10px 16px;font-size:11px;font-weight:600;color:var(--amber);font-family:'DM Mono',monospace;display:flex;align-items:center">● Semana 2 · 16–19 Mar</div>
+      </div>
+
+      <!-- JÁ ENTREGUE -->
+      <div class="gantt-divider" style="grid-template-columns:180px 1fr 1fr 1fr !important"><div style="grid-column:1/-1;padding:7px 18px;font-size:10px;font-weight:700;color:var(--pine);text-transform:uppercase;letter-spacing:.1em">✓ ENTREGUE — Semana 0</div></div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;min-height:50px;background:#FAFAFA">
+        <div class="gantt-label"><span style="font-size:15px">🏕️</span>Agente Colônia</div>
+        <div class="gantt-cell"><div class="gantt-bar" style="width:100%;background:var(--sage);color:#fff"><div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);margin-right:6px;flex-shrink:0"></div>Construído ✓</div></div>
+        <div class="gantt-cell" style="border-right:none"></div><div class="gantt-cell" style="border-right:none"></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;min-height:50px;background:#fff">
+        <div class="gantt-label"><span style="font-size:15px">🎉</span>Agente Aniversário</div>
+        <div class="gantt-cell"><div class="gantt-bar" style="width:100%;background:var(--sage);color:#fff"><div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);margin-right:6px;flex-shrink:0"></div>Construído ✓</div></div>
+        <div class="gantt-cell" style="border-right:none"></div><div class="gantt-cell" style="border-right:none"></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;min-height:50px;background:#FAFAFA">
+        <div class="gantt-label"><span style="font-size:15px">🔧</span>Fluxo Base + CRM</div>
+        <div class="gantt-cell"><div class="gantt-bar" style="width:100%;background:var(--sage);color:#fff"><div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);margin-right:6px;flex-shrink:0"></div>Integrado ✓</div></div>
+        <div class="gantt-cell" style="border-right:none"></div><div class="gantt-cell" style="border-right:none"></div>
+      </div>
+
+      <!-- SEMANA 1 -->
+      <div class="gantt-divider" style="grid-template-columns:180px 1fr 1fr 1fr !important"><div style="grid-column:1/-1;padding:7px 18px;font-size:10px;font-weight:700;color:var(--pine);text-transform:uppercase;letter-spacing:.1em">→ SEMANA 1 · Testes & Validação</div></div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;min-height:50px;background:#fff">
+        <div class="gantt-label"><span style="font-size:15px">🧪</span>Testes internos</div>
+        <div class="gantt-cell"></div>
+        <div class="gantt-cell"><div class="gantt-bar" style="width:60%;background:var(--amber);color:var(--forest)"><div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);margin-right:6px;flex-shrink:0"></div>Evaluation</div></div>
+        <div class="gantt-cell" style="border-right:none"></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;min-height:50px;background:#FAFAFA">
+        <div class="gantt-label"><span style="font-size:15px">📤</span>Envio ao cliente</div>
+        <div class="gantt-cell"></div>
+        <div class="gantt-cell"><div class="gantt-bar" style="margin-left:55%;width:45%;background:var(--amber);color:var(--forest)"><div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);margin-right:6px;flex-shrink:0"></div>Este doc</div></div>
+        <div class="gantt-cell" style="border-right:none"></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;min-height:50px;background:#fff">
+        <div class="gantt-label"><span style="font-size:15px">🤝</span>Testes c/ cliente</div>
+        <div class="gantt-cell"></div>
+        <div class="gantt-cell"><div class="gantt-bar" style="margin-left:60%;width:40%;background:var(--pine);color:#fff"><div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);margin-right:6px;flex-shrink:0"></div>Validação</div></div>
+        <div class="gantt-cell" style="border-right:none"></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;min-height:50px;background:#FAFAFA">
+        <div class="gantt-label"><span style="font-size:15px">🔧</span>Ajustes & melhorias</div>
+        <div class="gantt-cell"></div>
+        <div class="gantt-cell"><div class="gantt-bar" style="margin-left:70%;width:30%;background:var(--pine);color:#fff"><div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);margin-right:6px;flex-shrink:0"></div>Fixes</div></div>
+        <div class="gantt-cell" style="border-right:none"></div>
+      </div>
+
+      <!-- SEMANA 2 -->
+      <div class="gantt-divider" style="grid-template-columns:180px 1fr 1fr 1fr !important"><div style="grid-column:1/-1;padding:7px 18px;font-size:10px;font-weight:700;color:var(--pine);text-transform:uppercase;letter-spacing:.1em">→ SEMANA 2 · Novos Agentes & Go Live</div></div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;min-height:50px;background:#fff">
+        <div class="gantt-label"><span style="font-size:15px">🎂</span>Agente 15 Anos</div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div>
+        <div class="gantt-cell" style="border-right:none"><div class="gantt-bar" style="width:100%;background:var(--amber);color:var(--forest)"><div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);margin-right:6px;flex-shrink:0"></div>Construção</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;min-height:50px;background:#FAFAFA">
+        <div class="gantt-label"><span style="font-size:15px">💍</span>Agente Casamento</div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div>
+        <div class="gantt-cell" style="border-right:none"><div class="gantt-bar" style="margin-left:20%;width:80%;background:var(--amber);color:var(--forest)"><div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);margin-right:6px;flex-shrink:0"></div>Construção</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;min-height:50px;background:#fff">
+        <div class="gantt-label"><span style="font-size:15px">🎭</span>Agente Corporativo</div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div>
+        <div class="gantt-cell" style="border-right:none"><div class="gantt-bar" style="margin-left:40%;width:60%;background:var(--amber);color:var(--forest)"><div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);margin-right:6px;flex-shrink:0"></div>Construção</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;border-bottom:1px solid #f0f0f0;min-height:50px;background:#FAFAFA">
+        <div class="gantt-label"><span style="font-size:15px">🔗</span>Integração + QA</div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div>
+        <div class="gantt-cell" style="border-right:none"><div class="gantt-bar" style="margin-left:70%;width:30%;background:var(--pine);color:#fff"><div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);margin-right:6px;flex-shrink:0"></div>QA</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;min-height:50px;background:#fff">
+        <div class="gantt-label"><span style="font-size:15px">🚀</span>Go Live</div>
+        <div class="gantt-cell"></div><div class="gantt-cell"></div>
+        <div class="gantt-cell" style="border-right:none"><div class="gantt-bar" style="margin-left:90%;width:10%;background:var(--forest);color:#fff;min-width:32px;justify-content:center">🚀</div></div>
+      </div>
+
+    </div>
+
+    <!-- legend -->
+    <div style="display:flex;gap:20px;flex-wrap:wrap;padding:14px 18px;background:#fff;border-radius:10px;border:1px solid #e5e7eb;margin-bottom:48px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--stone)"><div style="width:28px;height:11px;border-radius:3px;background:var(--sage)"></div>Concluído</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--stone)"><div style="width:28px;height:11px;border-radius:3px;background:var(--amber)"></div>Em construção</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--stone)"><div style="width:28px;height:11px;border-radius:3px;background:var(--pine)"></div>Testes / QA</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--stone)"><div style="width:28px;height:11px;border-radius:3px;background:var(--forest)"></div>Lançamento</div>
+    </div>

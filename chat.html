@@ -138,13 +138,6 @@ body{font-family:'Outfit',sans-serif;background:var(--parchment);color:var(--ink
       <div class="phase-item" id="phase-6"><div class="phase-dot" style="background:#1a3d2b"></div>6 · Encerramento</div>
     </div>
 
-    <div class="sidebar-section">
-      <div class="sidebar-label">Dados coletados</div>
-      <div class="info-box" id="collected-data">
-        <div class="info-row" style="color:var(--stone);font-style:italic;font-size:11px;">Nenhum dado coletado ainda.</div>
-      </div>
-    </div>
-
     <button class="reset-btn" onclick="resetChat()">↺ Reiniciar conversa</button>
   </aside>
 
@@ -188,7 +181,6 @@ const WEBHOOK_URL = 'https://api.drbrunarodrigues.com/webhook/evals-pinetree';
 const SESSION_ID  = 'session_' + Math.random().toString(36).slice(2, 10);
 
 let messageCount = 0;
-let collectedData = {};
 
 function now() {
   return new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
@@ -228,9 +220,9 @@ function addBubble(text, role, time) {
   bubble.className = `bubble ${role}`;
 
   if (role === 'bot') {
-    bubble.innerHTML = `<div class="bubble-sender">🤖 Agente Pinetree</div>${escapeHtml(text).replace(/\n/g,'<br>')}<div class="bubble-time">${time}</div>`;
+    bubble.innerHTML = `<div class="bubble-sender">🤖 Agente Pinetree</div>${formatMsg(text)}<div class="bubble-time">${time}</div>`;
   } else {
-    bubble.innerHTML = `${escapeHtml(text).replace(/\n/g,'<br>')}<div class="bubble-time">${time} <span class="ticks">✓✓</span></div>`;
+    bubble.innerHTML = `${formatMsg(text)}<div class="bubble-time">${time} <span class="ticks">✓✓</span></div>`;
   }
 
   wrap.appendChild(bubble);
@@ -257,6 +249,14 @@ function removeTyping() {
 
 function escapeHtml(str) {
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function formatMsg(str) {
+  return escapeHtml(str)
+    .replace(/\*(.*?)\*/g, '<strong>$1</strong>')   // *bold*
+    .replace(/_(.*?)_/g,   '<em>$1</em>')            // _italic_
+    .replace(/~(.*?)~/g,   '<s>$1</s>')              // ~strike~
+    .replace(/\n/g, '<br>');
 }
 
 function setSendDisabled(val) {
@@ -295,17 +295,17 @@ async function sendMessage() {
 
     const data = await res.json();
 
-    // Aceita { output }, { message }, { response }, { text }, ou string direta
+    // Normaliza: aceita array ou objeto, extrai o texto
+    const item = Array.isArray(data) ? data[0] : data;
     let reply = '';
-    if (typeof data === 'string') reply = data;
-    else if (data.output)   reply = data.output;
-    else if (data.message)  reply = data.message;
-    else if (data.response) reply = data.response;
-    else if (data.text)     reply = data.text;
-    else reply = JSON.stringify(data);
+    if (typeof item === 'string')  reply = item;
+    else if (item.output)          reply = item.output;
+    else if (item.message)         reply = item.message;
+    else if (item.response)        reply = item.response;
+    else if (item.text)            reply = item.text;
+    else                           reply = JSON.stringify(item);
 
     addBubble(reply, 'bot', now());
-    parseCollectedData(reply);
 
   } catch (err) {
     removeTyping();
@@ -315,35 +315,6 @@ async function sendMessage() {
 
   setSendDisabled(false);
   document.getElementById('msg-input').focus();
-}
-
-// Tenta extrair dados coletados da resposta do agente
-function parseCollectedData(text) {
-  const lower = text.toLowerCase();
-  if (/\d{1,2}\/\d{1,2}|\d{1,2} de \w+/.test(text))         collectedData.data     = text.match(/(\d{1,2}[\/-]\d{1,2}(?:[\/-]\d{2,4})?|\d{1,2} de \w+)/i)?.[0];
-  if (/aniversário|aniversario/i.test(lower))                 collectedData.modalidade = 'Aniversário';
-  if (/colônia|colonia/i.test(lower))                         collectedData.modalidade = 'Colônia de Férias';
-  if (/casamento/i.test(lower))                               collectedData.modalidade = 'Casamento';
-  if (/15 anos/i.test(lower))                                 collectedData.modalidade = '15 Anos';
-  if (/corporativo/i.test(lower))                             collectedData.modalidade = 'Corporativo';
-  if (/natureza|harry potter|princesas/i.test(lower))         collectedData.tema = text.match(/natureza|harry potter|princesas/i)?.[0];
-  const criancas = text.match(/(\d+)\s*crian[çc]as/i);
-  if (criancas) collectedData.criancas = criancas[1];
-  const adultos = text.match(/(\d+)\s*adultos/i);
-  if (adultos) collectedData.adultos = adultos[1];
-  const email = text.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
-  if (email) collectedData.email = email[0];
-
-  renderCollectedData();
-}
-
-function renderCollectedData() {
-  const box = document.getElementById('collected-data');
-  if (!Object.keys(collectedData).length) return;
-  const labels = { modalidade:'Modalidade', data:'Data', criancas:'Crianças', adultos:'Adultos', tema:'Tema', email:'E-mail' };
-  box.innerHTML = Object.entries(collectedData).map(([k,v]) =>
-    `<div class="info-row">${labels[k]||k}: <strong>${v}</strong></div>`
-  ).join('');
 }
 
 function resetChat() {
@@ -359,8 +330,6 @@ function resetChat() {
         <button class="quick-btn" onclick="sendQuick('quero saber sobre colônia de férias')">🏕️ Perguntar sobre colônia</button>
       </div>
     </div>`;
-  collectedData = {};
-  document.getElementById('collected-data').innerHTML = '<div class="info-row" style="color:var(--stone);font-style:italic;font-size:11px;">Nenhum dado coletado ainda.</div>';
   messageCount = 0;
 }
 </script>

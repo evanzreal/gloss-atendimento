@@ -210,41 +210,35 @@ function hideEmpty() {
   if (e) e.remove();
 }
 
-// Divide resposta do bot em partes: imagens puras e blocos de texto por .!?
+// Divide resposta do bot em partes: imagens e frases separadas
 function splitBubbles(text) {
-  const result = [];
-  // Separa URLs de imagem standalone (linha própria ou entre espaços)
-  const lines = text.split('\n');
-  const imgUrlRe = /^https?:\/\/\S+\.(?:jpg|jpeg|png|gif|webp)(\?.*)?$/i;
-  const mdImgRe  = /^!\[([^\]]*)\]\((https?:\/\/[^)]+)\)$/;
+  const parts = [];
 
-  let textBuf = '';
-  for (const line of lines) {
-    const trimmed = line.trim();
-    const mdMatch = trimmed.match(mdImgRe);
-    if (mdMatch || imgUrlRe.test(trimmed)) {
-      // flush texto acumulado
-      if (textBuf.trim()) { result.push({ type: 'text', val: textBuf.trim() }); textBuf = ''; }
-      const src = mdMatch ? mdMatch[2] : trimmed;
-      const alt = mdMatch ? mdMatch[1] : '';
-      result.push({ type: 'img', src, alt });
-    } else {
-      textBuf += (textBuf ? '\n' : '') + line;
-    }
+  // Passo 1: separa imagens (markdown ou URL pura) do restante
+  const tokenRe = /!\[([^\]]*)\]\((https?:\/\/[^)]+)\)|https?:\/\/\S+/g;
+  let last = 0, m;
+  while ((m = tokenRe.exec(text)) !== null) {
+    if (m.index > last) parts.push({ type: 'text', val: text.slice(last, m.index) });
+    const src = m[2] || m[0];
+    const alt = m[1] || '';
+    parts.push({ type: 'img', src, alt });
+    last = m.index + m[0].length;
   }
-  if (textBuf.trim()) result.push({ type: 'text', val: textBuf.trim() });
+  if (last < text.length) parts.push({ type: 'text', val: text.slice(last) });
 
-  // Quebra blocos de texto em frases por . ! ?
+  // Passo 2: quebra blocos de texto por . ! ?
   const expanded = [];
-  for (const part of result) {
+  for (const part of parts) {
     if (part.type !== 'text') { expanded.push(part); continue; }
-    const sentences = part.val.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?\n]+$/g) || [part.val];
-    for (const s of sentences) {
-      const t = s.trim();
+    // divide nas pontuações, mantendo o delimitador
+    const frases = part.val.split(/(?<=[.!?])\s+/);
+    for (const f of frases) {
+      const t = f.trim();
       if (t) expanded.push({ type: 'text', val: t });
     }
   }
-  return expanded;
+
+  return expanded.filter(p => p.type === 'img' || p.val.trim());
 }
 
 function renderBubble(content, role, time, isLast) {

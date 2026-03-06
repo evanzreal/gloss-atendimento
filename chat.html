@@ -252,11 +252,27 @@ function escapeHtml(str) {
 }
 
 function formatMsg(str) {
-  return escapeHtml(str)
-    .replace(/\*(.*?)\*/g, '<strong>$1</strong>')   // *bold*
-    .replace(/_(.*?)_/g,   '<em>$1</em>')            // _italic_
-    .replace(/~(.*?)~/g,   '<s>$1</s>')              // ~strike~
-    .replace(/\n/g, '<br>');
+  // Extrai imagens markdown antes de escapar o HTML
+  const parts = [];
+  const imgRegex = /!\[([^\]]*)\]\((https?:\/\/[^)]+)\)/g;
+  let last = 0, match;
+  while ((match = imgRegex.exec(str)) !== null) {
+    if (match.index > last) parts.push({ type: 'text', val: str.slice(last, match.index) });
+    parts.push({ type: 'img', alt: match[1], src: match[2] });
+    last = match.index + match[0].length;
+  }
+  if (last < str.length) parts.push({ type: 'text', val: str.slice(last) });
+
+  return parts.map(p => {
+    if (p.type === 'img') {
+      return `<img src="${p.src}" alt="${escapeHtml(p.alt)}" style="max-width:100%;border-radius:8px;margin:4px 0;display:block;cursor:pointer;" onclick="window.open('${p.src}','_blank')">`;
+    }
+    return escapeHtml(p.val)
+      .replace(/\*(.*?)\*/g, '<strong>$1</strong>')
+      .replace(/_(.*?)_/g,   '<em>$1</em>')
+      .replace(/~(.*?)~/g,   '<s>$1</s>')
+      .replace(/\n/g, '<br>');
+  }).join('');
 }
 
 function setSendDisabled(val) {

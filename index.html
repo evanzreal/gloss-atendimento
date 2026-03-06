@@ -191,14 +191,11 @@ footer{background:var(--forest);border-top:2px solid var(--sage);padding:28px 40
 .resp-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .resp-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
 .resp-cols-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
-.resp-cost-table-row{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1.2fr;align-items:center;}
 @media(max-width:768px){
   .resp-grid-4{grid-template-columns:repeat(2,1fr) !important;}
   .resp-grid-3{grid-template-columns:1fr !important;}
   .resp-grid-2{grid-template-columns:1fr !important;}
   .resp-cols-4{grid-template-columns:repeat(2,1fr) !important;}
-  .resp-cost-table-row{grid-template-columns:1fr 1fr !important;gap:4px;padding:10px 14px !important;}
-  .resp-cost-table-row>div:nth-child(5){grid-column:1/-1;text-align:center !important;}
   [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr) !important;}
   [style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr !important;}
   [style*="grid-template-columns:1fr 1fr;"]{grid-template-columns:1fr !important;}
@@ -231,11 +228,11 @@ footer{background:var(--forest);border-top:2px solid var(--sage);padding:28px 40
     </div>
   </div>
   <div class="nav-links">
-    <a class="nav-btn active" href="#sistema">⚙️ Sistema</a>
+    <a class="nav-btn active" href="#agente">🤖 Agente</a>
+    <a class="nav-btn" href="#sistema">⚙️ Sistema</a>
     <a class="nav-btn" href="#crm">📋 CRM</a>
     <a class="nav-btn" href="#evaluation">🧪 Evaluation</a>
     <a class="nav-btn" href="#conversacional">💬 Conversacional</a>
-    <a class="nav-btn" href="#custos">💰 Custos</a>
     <a class="nav-btn" href="#plano">📅 Plano de Ação</a>
   </div>
   <div class="nav-meta">BIOS Consulting Group × Pine Tree · 2026</div>
@@ -259,20 +256,162 @@ footer{background:var(--forest);border-top:2px solid var(--sage);padding:28px 40
     <h1>Sistema de Atendimento<br><em style="color:var(--sage)">Pine Tree Farm</em></h1>
     <p>Visão completa do sistema de atendimento automatizado via WhatsApp — arquitetura técnica, jornada conversacional e plano de implementação.</p>
     <div class="hero-btns">
+      <a class="hero-btn" href="#agente">🤖 Agente</a>
       <a class="hero-btn" href="#sistema">⚙️ Sistema</a>
       <a class="hero-btn" href="#crm">📋 CRM</a>
       <a class="hero-btn" href="#evaluation">🧪 Evaluation</a>
       <a class="hero-btn" href="#conversacional">💬 Conversacional</a>
-      <a class="hero-btn" href="#custos">💰 Custos</a>
       <a class="hero-btn" href="#plano">📅 Plano de Ação</a>
-    </div>
-    <div style="margin-top:28px;">
-      <a href="chat.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--sage);border-radius:12px;color:var(--forest);font-size:15px;font-weight:700;font-family:'Outfit',sans-serif;text-decoration:none;transition:background .2s;box-shadow:0 4px 16px rgba(82,183,136,.3);">
-        🤖 Testar o Agente ao Vivo <span style="font-size:12px;font-weight:400;opacity:.75;">→ Abrir chat</span>
-      </a>
     </div>
   </div>
 </div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SEÇÃO 0: IDENTIDADE DO AGENTE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="agente" style="scroll-margin-top:64px;background:linear-gradient(180deg,#EEF4F0 0%,#F7F4EF 100%);position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;opacity:.4;background:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22><circle cx=%2230%22 cy=%2230%22 r=%221%22 fill=%22%2352B788%22/></svg>') repeat;"></div>
+  <div style="max-width:1100px;margin:0 auto;padding:80px 48px;position:relative;z-index:1;">
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:56px;">
+      <div style="display:inline-block;font-size:10px;font-weight:700;color:var(--pine);text-transform:uppercase;letter-spacing:.18em;background:var(--dew);padding:6px 16px;border-radius:20px;border:1px solid var(--mist);margin-bottom:20px;">🤖 &nbsp;Conheça o Produto</div>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,42px);color:var(--forest);line-height:1.2;margin:0 0 12px;">Sua nova atendente<br><em style="color:var(--pine);font-style:normal;">inteligente</em></h2>
+      <p style="font-size:15px;color:var(--stone);max-width:560px;margin:0 auto;line-height:1.7;">Uma agente de IA treinada especificamente para a Pine Tree Farm — atende, qualifica e registra leads 24h por dia, 7 dias por semana.</p>
+    </div>
+
+    <!-- Card principal -->
+    <div style="display:grid;grid-template-columns:320px 1fr;gap:48px;align-items:start;">
+
+      <!-- Avatar + Info -->
+      <div style="text-align:center;">
+        <div style="width:240px;height:240px;margin:0 auto 24px;border-radius:50%;box-shadow:0 20px 60px rgba(0,0,0,.15);border:4px solid var(--mist);overflow:hidden;">
+          <img src="profile-pin.png" alt="Sofia" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--forest);margin-bottom:4px;">Sofia</div>
+        <div style="font-size:13px;color:var(--pine);font-weight:600;letter-spacing:.04em;margin-bottom:16px;">Agente de Atendimento IA</div>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:var(--dew);padding:6px 14px;border-radius:20px;border:1px solid var(--mist);">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--sage);animation:pulse 2s infinite;"></div>
+          <span style="font-size:11px;color:var(--pine);font-weight:600;">Online 24/7</span>
+        </div>
+      </div>
+
+      <!-- Detalhes -->
+      <div style="display:flex;flex-direction:column;gap:20px;">
+
+        <!-- Personalidade -->
+        <div style="background:#fff;border-radius:16px;padding:24px;border:1px solid #e5e7eb;">
+          <div style="font-family:'DM Serif Display',serif;font-size:16px;color:var(--forest);margin-bottom:14px;">✨ Personalidade</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="font-size:12px;color:var(--pine);background:var(--dew);padding:5px 12px;border-radius:8px;border:1px solid var(--mist);">Acolhedora e calorosa</span>
+            <span style="font-size:12px;color:var(--pine);background:var(--dew);padding:5px 12px;border-radius:8px;border:1px solid var(--mist);">Proativa e consultiva</span>
+            <span style="font-size:12px;color:var(--pine);background:var(--dew);padding:5px 12px;border-radius:8px;border:1px solid var(--mist);">Entusiasmada com a Pine Tree</span>
+            <span style="font-size:12px;color:var(--pine);background:var(--dew);padding:5px 12px;border-radius:8px;border:1px solid var(--mist);">Natural e conversacional</span>
+          </div>
+        </div>
+
+        <!-- O que ela faz -->
+        <div style="background:#fff;border-radius:16px;padding:24px;border:1px solid #e5e7eb;">
+          <div style="font-family:'DM Serif Display',serif;font-size:16px;color:var(--forest);margin-bottom:14px;">🎯 O que ela faz</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="display:flex;align-items:start;gap:10px;padding:10px;background:var(--dew);border-radius:10px;">
+              <span style="font-size:18px;flex-shrink:0;">💬</span>
+              <div>
+                <div style="font-size:12px;font-weight:700;color:var(--forest);margin-bottom:2px;">Atende no WhatsApp</div>
+                <div style="font-size:11px;color:var(--stone);line-height:1.5;">Responde leads automaticamente com linguagem natural e empática</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:start;gap:10px;padding:10px;background:var(--dew);border-radius:10px;">
+              <span style="font-size:18px;flex-shrink:0;">🎉</span>
+              <div>
+                <div style="font-size:12px;font-weight:700;color:var(--forest);margin-bottom:2px;">Apresenta os serviços</div>
+                <div style="font-size:11px;color:var(--stone);line-height:1.5;">Aniversários e Colônia de Férias com fotos e detalhes</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:start;gap:10px;padding:10px;background:var(--dew);border-radius:10px;">
+              <span style="font-size:18px;flex-shrink:0;">📋</span>
+              <div>
+                <div style="font-size:12px;font-weight:700;color:var(--forest);margin-bottom:2px;">Qualifica o lead</div>
+                <div style="font-size:11px;color:var(--stone);line-height:1.5;">Coleta data, quantidade, tema e todas as informações necessárias</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:start;gap:10px;padding:10px;background:var(--dew);border-radius:10px;">
+              <span style="font-size:18px;flex-shrink:0;">🔗</span>
+              <div>
+                <div style="font-size:12px;font-weight:700;color:var(--forest);margin-bottom:2px;">Registra no CRM</div>
+                <div style="font-size:11px;color:var(--stone);line-height:1.5;">Cria contato e negócio no Agendor automaticamente</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Serviços que atende -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div style="background:#fff;border-radius:16px;padding:20px;border:1px solid #e5e7eb;">
+            <div style="font-size:24px;margin-bottom:8px;">🎂</div>
+            <div style="font-size:13px;font-weight:700;color:var(--forest);margin-bottom:4px;">Aniversários</div>
+            <div style="font-size:11px;color:var(--stone);line-height:1.6;">Coleta data, idade, convidados (crianças + adultos) e tema. Tira dúvidas sobre pacotes, decoração e atividades.</div>
+          </div>
+          <div style="background:#fff;border-radius:16px;padding:20px;border:1px solid #e5e7eb;">
+            <div style="font-size:24px;margin-bottom:8px;">🏕️</div>
+            <div style="font-size:13px;font-weight:700;color:var(--forest);margin-bottom:4px;">Colônia de Férias</div>
+            <div style="font-size:11px;color:var(--stone);line-height:1.6;">Coleta período, idades, turno e desconto de irmãos. Responde sobre alimentação, equipe e acompanhamento.</div>
+          </div>
+        </div>
+
+        <!-- Guardrails -->
+        <div style="background:#fff;border-radius:16px;padding:24px;border:1px solid #e5e7eb;">
+          <div style="font-family:'DM Serif Display',serif;font-size:16px;color:var(--forest);margin-bottom:14px;">🛡️ Guardrails de segurança</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="font-size:11px;color:var(--stone);line-height:1.6;padding:8px 12px;background:var(--dew);border-radius:8px;">
+              <strong style="color:var(--forest);">Anti-alucinação de preços</strong> — nunca inventa valores, apenas repassa o que está no FAQ
+            </div>
+            <div style="font-size:11px;color:var(--stone);line-height:1.6;padding:8px 12px;background:var(--dew);border-radius:8px;">
+              <strong style="color:var(--forest);">Uma pergunta por vez</strong> — não bombardeia o cliente com múltiplas perguntas
+            </div>
+            <div style="font-size:11px;color:var(--stone);line-height:1.6;padding:8px 12px;background:var(--dew);border-radius:8px;">
+              <strong style="color:var(--forest);">Anti-loop</strong> — sistema de estados impede repetição de confirmações e etapas
+            </div>
+            <div style="font-size:11px;color:var(--stone);line-height:1.6;padding:8px 12px;background:var(--dew);border-radius:8px;">
+              <strong style="color:var(--forest);">Segurança do sistema</strong> — nunca revela informações internas, tools ou lógica
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Métricas de capacidade -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px;">
+      <div style="background:#fff;border-radius:14px;padding:20px;text-align:center;border:1px solid #e5e7eb;">
+        <div style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--pine);line-height:1;">24/7</div>
+        <div style="font-size:11px;color:var(--stone);margin-top:6px;text-transform:uppercase;letter-spacing:.06em;">Disponibilidade</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:20px;text-align:center;border:1px solid #e5e7eb;">
+        <div style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--pine);line-height:1;">~30s</div>
+        <div style="font-size:11px;color:var(--stone);margin-top:6px;text-transform:uppercase;letter-spacing:.06em;">Tempo de resposta</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:20px;text-align:center;border:1px solid #e5e7eb;">
+        <div style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--pine);line-height:1;">2</div>
+        <div style="font-size:11px;color:var(--stone);margin-top:6px;text-transform:uppercase;letter-spacing:.06em;">Serviços atendidos</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:20px;text-align:center;border:1px solid #e5e7eb;">
+        <div style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--pine);line-height:1;">100%</div>
+        <div style="font-size:11px;color:var(--stone);margin-top:6px;text-transform:uppercase;letter-spacing:.06em;">Leads registrados no CRM</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:768px){
+  #agente [style*="grid-template-columns:320px 1fr"]{grid-template-columns:1fr !important;}
+  #agente [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
+  #agente [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr) !important;}
+}
+</style>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!-- SEÇÃO 1: FLUXO DO SISTEMA -->
@@ -504,7 +643,7 @@ footer{background:var(--forest);border-top:2px solid var(--sage);padding:28px 40
           <div style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;">AUTO</div>
         </div>
         <div style="padding:10px;display:flex;flex-direction:column;gap:8px;">
-          <div style="font-size:10px;color:var(--stone);padding:6px 8px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;">Criado pelo agente IA</div>
+          <div style="font-size:11px;color:var(--stone);padding:8px;line-height:1.5;background:#f9fafb;border-radius:8px;margin-bottom:4px;">Lead chega pelo WhatsApp e o agente IA cria automaticamente o contato e o negócio no Agendor com todos os dados coletados.</div>
           <div style="background:var(--dew);border-radius:9px;padding:12px;border-left:3px solid var(--sage);">
             <div style="font-size:11px;font-weight:700;color:var(--forest);margin-bottom:4px;">🎉 Aniversário</div>
             <div style="font-size:10px;color:var(--stone);line-height:1.6;">📅 15/02 · 70 crianças<br>🎨 Tema: Natureza<br>📧 evanz@gmail.com</div>
@@ -531,7 +670,7 @@ footer{background:var(--forest);border-top:2px solid var(--sage);padding:28px 40
           <div style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;">MANUAL</div>
         </div>
         <div style="padding:10px;display:flex;flex-direction:column;gap:8px;">
-          <div style="font-size:10px;color:var(--stone);padding:6px 8px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;">Equipe retorna o lead</div>
+          <div style="font-size:11px;color:var(--stone);padding:8px;line-height:1.5;background:#f9fafb;border-radius:8px;margin-bottom:4px;">A equipe comercial da Pine Tree entra em contato com o lead por telefone ou e-mail para alinhar detalhes e iniciar o relacionamento.</div>
           <div style="background:#F0FDF4;border-radius:9px;padding:12px;border-left:3px solid var(--pine);">
             <div style="font-size:11px;font-weight:700;color:var(--forest);margin-bottom:4px;">💍 Casamento</div>
             <div style="font-size:10px;color:var(--stone);line-height:1.6;">📅 Dez/2025 · 150 convidados<br>📧 ana@email.com</div>
@@ -550,7 +689,7 @@ footer{background:var(--forest);border-top:2px solid var(--sage);padding:28px 40
           <div style="background:rgba(0,0,0,.1);color:var(--forest);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;">2</div>
         </div>
         <div style="padding:10px;display:flex;flex-direction:column;gap:8px;">
-          <div style="font-size:10px;color:var(--stone);padding:6px 8px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;">Aguardando retorno</div>
+          <div style="font-size:11px;color:var(--stone);padding:8px;line-height:1.5;background:#f9fafb;border-radius:8px;margin-bottom:4px;">Proposta comercial enviada ao cliente. Aguardando retorno para aprovação, ajustes ou follow-up da equipe.</div>
           <div style="background:#FFFBEB;border-radius:9px;padding:12px;border-left:3px solid var(--amber);">
             <div style="font-size:11px;font-weight:700;color:var(--forest);margin-bottom:4px;">🎂 15 Anos</div>
             <div style="font-size:10px;color:var(--stone);line-height:1.6;">📅 Abr/2025 · 80 convidados<br>🎨 Tema: K-pop</div>
@@ -577,7 +716,7 @@ footer{background:var(--forest);border-top:2px solid var(--sage);padding:28px 40
           <div style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:'DM Mono',monospace;">1</div>
         </div>
         <div style="padding:10px;display:flex;flex-direction:column;gap:8px;">
-          <div style="font-size:10px;color:var(--stone);padding:6px 8px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;">Quase fechando</div>
+          <div style="font-size:11px;color:var(--stone);padding:8px;line-height:1.5;background:#f9fafb;border-radius:8px;margin-bottom:4px;">Cliente demonstrou interesse real. Fase de negociação de valores, datas e condições para fechar o contrato.</div>
           <div style="background:#F5F3FF;border-radius:9px;padding:12px;border-left:3px solid #7C3AED;">
             <div style="font-size:11px;font-weight:700;color:#4C1D95;margin-bottom:4px;">🎉 Aniversário VIP</div>
             <div style="font-size:10px;color:var(--stone);line-height:1.6;">📅 Mai/2025 · 120 convidados<br>💰 R$ 18.000 estimado</div>
@@ -882,145 +1021,6 @@ footer{background:var(--forest);border-top:2px solid var(--sage);padding:28px 40
   </div>
 </div>
 
-
-<!-- SEÇÃO 5: CUSTOS -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<div id="custos" style="scroll-margin-top:64px;background:#F8F6F2;">
-  <div class="sec-head" style="background:linear-gradient(180deg,#ede9e2 0%,#F8F6F2 100%);border-bottom:1px solid #e5e7eb;">
-    <div class="sec-inner">
-      <div class="sec-badge">💰 &nbsp;05</div>
-      <h2 class="sec-title">Projeção de Custos</h2>
-      <p class="sec-desc">Estimativa de custo operacional baseada no volume de conversas — modelo GPT-4o-mini com média de 27 mensagens por atendimento.</p>
-    </div>
-  </div>
-  <div style="max-width:1100px;margin:0 auto;padding:48px 48px 60px;">
-
-    <!-- Premissas -->
-    <div class="resp-cols-4" style="background:#fff;border-radius:14px;border:1px solid #e5e7eb;padding:20px 24px;margin-bottom:32px;">
-      <div>
-        <div style="font-size:10px;color:var(--stone);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:'DM Mono',monospace;">Modelo IA</div>
-        <div style="font-size:14px;font-weight:600;color:var(--forest);">GPT-4o-mini</div>
-      </div>
-      <div>
-        <div style="font-size:10px;color:var(--stone);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:'DM Mono',monospace;">Msgs / conversa</div>
-        <div style="font-size:14px;font-weight:600;color:var(--forest);">~27 mensagens</div>
-      </div>
-      <div>
-        <div style="font-size:10px;color:var(--stone);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:'DM Mono',monospace;">Tokens / msg</div>
-        <div style="font-size:14px;font-weight:600;color:var(--forest);">~600 tokens</div>
-      </div>
-      <div>
-        <div style="font-size:10px;color:var(--stone);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;font-family:'DM Mono',monospace;">Custo / 1M tokens</div>
-        <div style="font-size:14px;font-weight:600;color:var(--forest);">$0,15 input · $0,60 output</div>
-      </div>
-    </div>
-
-    <!-- Simulador interativo -->
-    <div style="background:var(--forest);border-radius:16px;padding:32px;margin-bottom:32px;color:#fff;">
-      <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#fff;margin-bottom:6px;">Simulador de Volume</div>
-      <div style="font-size:12px;color:var(--moss);margin-bottom:28px;">Arraste o slider para simular o custo por volume de conversas mensais</div>
-
-      <input type="range" id="volSlider" min="50" max="2000" step="50" value="300"
-        style="width:100%;accent-color:var(--sage);height:6px;cursor:pointer;margin-bottom:20px;">
-
-      <div class="resp-grid-3" style="gap:16px;margin-top:8px;">
-        <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:20px;text-align:center;border:1px solid rgba(82,183,136,.2);">
-          <div style="font-size:11px;color:var(--moss);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Conversas / mês</div>
-          <div id="vol-conversas" style="font-size:36px;font-weight:700;font-family:'DM Serif Display',serif;color:var(--sage);line-height:1;">300</div>
-        </div>
-        <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:20px;text-align:center;border:1px solid rgba(82,183,136,.2);">
-          <div style="font-size:11px;color:var(--moss);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Custo / atendimento</div>
-          <div id="vol-unit" style="font-size:36px;font-weight:700;font-family:'DM Serif Display',serif;color:var(--sage);line-height:1;">R$0,15</div>
-        </div>
-        <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:20px;text-align:center;border:1px solid rgba(255,255,255,.15);">
-          <div style="font-size:11px;color:var(--moss);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Custo total / mês</div>
-          <div id="vol-total" style="font-size:36px;font-weight:700;font-family:'DM Serif Display',serif;color:#fff;line-height:1;">R$45</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tabela de cenários -->
-    <h3 style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--forest);margin-bottom:16px;">Cenários de Referência</h3>
-    <div style="background:#fff;border-radius:14px;border:1px solid #e5e7eb;overflow:hidden;">
-      <div class="resp-cost-table-row" style="background:var(--forest);padding:12px 20px;">
-        <div style="font-size:11px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:.06em;">Cenário</div>
-        <div style="font-size:11px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:.06em;text-align:center;">Conversas/mês</div>
-        <div style="font-size:11px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:.06em;text-align:center;">Custo/atendimento</div>
-        <div style="font-size:11px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:.06em;text-align:center;">Total/mês (R$)</div>
-        <div style="font-size:11px;font-weight:600;color:var(--moss);text-transform:uppercase;letter-spacing:.06em;text-align:center;">Total/ano (R$)</div>
-      </div>
-      <div id="cost-table">
-        <!-- rows inserted by JS -->
-      </div>
-    </div>
-
-    <div style="margin-top:16px;padding:14px 18px;background:#fff;border-radius:10px;border:1px solid #e5e7eb;border-left:4px solid var(--stone);font-size:12px;color:var(--stone);line-height:1.7;">
-      <strong style="color:var(--forest);">ℹ️ Como foi calculado:</strong> cada conversa gera ~27 trocas de mensagem × ~600 tokens médios = ~16.200 tokens/conversa. Usando os preços do GPT-4o-mini ($0,15/1M input + $0,60/1M output, proporção 70/30), o custo por conversa é aproximadamente <strong>US$0,027</strong> ≈ <strong>R$0,15</strong> na cotação atual. Valores não incluem infraestrutura n8n, WhatsApp Business API nem hospedagem.
-    </div>
-
-  </div>
-</div>
-
-<script>
-// ── COST SIMULATOR ──
-const USD_BRL = 5.70;
-const TOKENS_PER_CONV = 16200;
-const INPUT_RATIO = 0.7;
-const OUTPUT_RATIO = 0.3;
-const PRICE_INPUT  = 0.15 / 1_000_000;
-const PRICE_OUTPUT = 0.60 / 1_000_000;
-
-function calcCost(conversations) {
-  const tokensTotal = conversations * TOKENS_PER_CONV;
-  const usd = tokensTotal * (INPUT_RATIO * PRICE_INPUT + OUTPUT_RATIO * PRICE_OUTPUT);
-  const brl = usd * USD_BRL;
-  const perConv = brl / conversations;
-  return { total: brl, perConv };
-}
-
-function fmt(n) {
-  return n < 10 ? 'R$' + n.toFixed(2) : 'R$' + Math.round(n).toLocaleString('pt-BR');
-}
-
-const slider = document.getElementById('volSlider');
-const elConv  = document.getElementById('vol-conversas');
-const elUnit  = document.getElementById('vol-unit');
-const elTotal = document.getElementById('vol-total');
-
-function updateSlider() {
-  const v = parseInt(slider.value);
-  const { total, perConv } = calcCost(v);
-  elConv.textContent  = v.toLocaleString('pt-BR');
-  elUnit.textContent  = 'R$' + perConv.toFixed(2);
-  elTotal.textContent = fmt(total);
-}
-slider.addEventListener('input', updateSlider);
-updateSlider();
-
-// Tabela de cenários
-const SCENARIOS = [
-  { label:'🌱 Lançamento',   conv:100,  bg:'#fff' },
-  { label:'📈 Crescimento',  conv:300,  bg:'#FAFAFA' },
-  { label:'🚀 Escala',       conv:600,  bg:'#fff' },
-  { label:'🏆 Alto volume',  conv:1200, bg:'#FAFAFA' },
-  { label:'🌐 Enterprise',   conv:2000, bg:'#fff' },
-];
-const tbody = document.getElementById('cost-table');
-SCENARIOS.forEach(s => {
-  const { total, perConv } = calcCost(s.conv);
-  const row = document.createElement('div');
-  row.className = 'resp-cost-table-row';
-  row.style.cssText = `padding:12px 20px;border-bottom:1px solid #f0f0f0;background:${s.bg};`;
-  row.innerHTML = `
-    <div style="font-size:13px;font-weight:500;color:var(--forest);">${s.label}</div>
-    <div style="font-size:13px;text-align:center;font-family:'DM Mono',monospace;color:var(--stone);">${s.conv.toLocaleString('pt-BR')}</div>
-    <div style="font-size:13px;text-align:center;font-family:'DM Mono',monospace;color:var(--stone);">R$${perConv.toFixed(2)}</div>
-    <div style="font-size:13px;text-align:center;font-weight:600;color:var(--forest);">${fmt(total)}</div>
-    <div style="font-size:13px;text-align:center;font-weight:700;color:var(--pine);">${fmt(total * 12)}</div>
-  `;
-  tbody.appendChild(row);
-});
-</script>
 
 <!-- SEÇÃO 6: PLANO DE AÇÃO -->
 <!-- ═══════════════════════════════════════════════════════════ -->

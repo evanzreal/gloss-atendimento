@@ -214,34 +214,50 @@ function hideEmpty() {
 function splitBubbles(text) {
   const parts = [];
 
-  // Passo 1: separa imagens (markdown ou URL pura) do restante
+  // Passo 1: separa imagens (markdown ![alt](url) ou URL pura) do texto
   const tokenRe = /!\[([^\]]*)\]\((https?:\/\/[^)]+)\)|https?:\/\/\S+/g;
   let last = 0, m;
   while ((m = tokenRe.exec(text)) !== null) {
     if (m.index > last) parts.push({ type: 'text', val: text.slice(last, m.index) });
-    const src = m[2] || m[0];
-    const alt = m[1] || '';
-    parts.push({ type: 'img', src, alt });
+    parts.push({ type: 'img', src: m[2] || m[0], alt: m[1] || '' });
     last = m.index + m[0].length;
   }
   if (last < text.length) parts.push({ type: 'text', val: text.slice(last) });
 
-  // Passo 2: quebra blocos de texto por . ! ?
+  // Passo 2: quebra blocos de texto em frases
+  // Regra: quebra após . ! ? seguido de espaço+letra maiúscula ou emoji (nova frase)
+  // NÃO quebra em : ou no meio de frases
   const expanded = [];
   for (const part of parts) {
     if (part.type !== 'text') { expanded.push(part); continue; }
-    // divide nas pontuações, mantendo o delimitador
-    const frases = part.val.split(/(?<=[.!?])\s+/);
+
+    // Split: após [.!?] seguido de espaço e letra maiúscula/emoji (início real de nova frase)
+    const frases = part.val.split(/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÂÊÎÔÛÀÃÕÇ\p{Emoji_Presentation}\p{Extended_Pictographic}])/u);
     for (const f of frases) {
       const t = f.trim();
       if (t) expanded.push({ type: 'text', val: t });
     }
   }
 
-  return expanded.filter(p => p.type === 'img' || p.val.trim());
+  // Passo 3: gruda emojis/fragmentos curtos sozinhos na bolha anterior
+  const merged = [];
+  for (const part of expanded) {
+    if (
+      part.type === 'text' &&
+      merged.length > 0 &&
+      merged[merged.length - 1].type === 'text' &&
+      /^[\p{Emoji_Presentation}\p{Extended_Pictographic}\s]{1,3}$/u.test(part.val)
+    ) {
+      merged[merged.length - 1].val += ' ' + part.val;
+    } else {
+      merged.push(part);
+    }
+  }
+
+  return merged.filter(p => p.type === 'img' || p.val.trim());
 }
 
-function renderBubble(content, role, time, isLast) {
+function renderBubble(content, role, time, isFirst, isLast) {
   hideEmpty();
   const messages = document.getElementById('messages');
   const wrap = document.createElement('div');
@@ -257,7 +273,9 @@ function renderBubble(content, role, time, isLast) {
   }
 
   if (role === 'bot') {
-    bubble.innerHTML = `<div class="bubble-sender">🤖 Sofia — Agente Pinetree</div>${inner}${isLast ? `<div class="bubble-time">${time}</div>` : ''}`;
+    const sender = isFirst ? '<div class="bubble-sender">🤖 Sofia — Agente Pinetree</div>' : '';
+    const timestamp = isLast ? `<div class="bubble-time">${time}</div>` : '';
+    bubble.innerHTML = `${sender}${inner}${timestamp}`;
   } else {
     bubble.innerHTML = `${inner}<div class="bubble-time">${time} <span class="ticks">✓✓</span></div>`;
   }
@@ -269,15 +287,14 @@ function renderBubble(content, role, time, isLast) {
 
 function addBubble(text, role, time) {
   if (role === 'user') {
-    renderBubble({ type: 'text', val: text }, role, time, true);
+    renderBubble({ type: 'text', val: text }, role, time, true, true);
     return;
   }
-  // Bot: divide em múltiplas bolhas com delay
   const parts = splitBubbles(text);
   parts.forEach((part, i) => {
     setTimeout(() => {
-      renderBubble(part, role, time, i === parts.length - 1);
-    }, i * 300);
+      renderBubble(part, role, time, i === 0, i === parts.length - 1);
+    }, i * 350);
   });
 }
 

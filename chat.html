@@ -178,7 +178,7 @@ body{font-family:'Outfit',sans-serif;background:var(--parchment);color:var(--ink
 
 <script>
 const WEBHOOK_URL = 'https://api.drbrunarodrigues.com/webhook/evals-pinetree';
-const SESSION_ID  = 'session_' + Math.random().toString(36).slice(2, 10);
+let SESSION_ID = 'session_' + Math.random().toString(36).slice(2, 10);
 
 let messageCount = 0;
 
@@ -414,6 +414,7 @@ function resetChat() {
       </div>
     </div>`;
   messageCount = 0;
+  SESSION_ID = 'session_' + Math.random().toString(36).slice(2, 10);
 }
 </script>
 </body>

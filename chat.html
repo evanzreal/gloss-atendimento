@@ -210,25 +210,81 @@ function hideEmpty() {
   if (e) e.remove();
 }
 
-function addBubble(text, role, time) {
+// Divide resposta do bot em partes: imagens puras e blocos de texto por .!?
+function splitBubbles(text) {
+  const result = [];
+  // Separa URLs de imagem standalone (linha própria ou entre espaços)
+  const lines = text.split('\n');
+  const imgUrlRe = /^https?:\/\/\S+\.(?:jpg|jpeg|png|gif|webp)(\?.*)?$/i;
+  const mdImgRe  = /^!\[([^\]]*)\]\((https?:\/\/[^)]+)\)$/;
+
+  let textBuf = '';
+  for (const line of lines) {
+    const trimmed = line.trim();
+    const mdMatch = trimmed.match(mdImgRe);
+    if (mdMatch || imgUrlRe.test(trimmed)) {
+      // flush texto acumulado
+      if (textBuf.trim()) { result.push({ type: 'text', val: textBuf.trim() }); textBuf = ''; }
+      const src = mdMatch ? mdMatch[2] : trimmed;
+      const alt = mdMatch ? mdMatch[1] : '';
+      result.push({ type: 'img', src, alt });
+    } else {
+      textBuf += (textBuf ? '\n' : '') + line;
+    }
+  }
+  if (textBuf.trim()) result.push({ type: 'text', val: textBuf.trim() });
+
+  // Quebra blocos de texto em frases por . ! ?
+  const expanded = [];
+  for (const part of result) {
+    if (part.type !== 'text') { expanded.push(part); continue; }
+    const sentences = part.val.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?\n]+$/g) || [part.val];
+    for (const s of sentences) {
+      const t = s.trim();
+      if (t) expanded.push({ type: 'text', val: t });
+    }
+  }
+  return expanded;
+}
+
+function renderBubble(content, role, time, isLast) {
   hideEmpty();
   const messages = document.getElementById('messages');
   const wrap = document.createElement('div');
   wrap.className = `msg-wrap ${role}`;
-
   const bubble = document.createElement('div');
   bubble.className = `bubble ${role}`;
 
-  if (role === 'bot') {
-    bubble.innerHTML = `<div class="bubble-sender">🤖 Agente Pinetree</div>${formatMsg(text)}<div class="bubble-time">${time}</div>`;
+  let inner = '';
+  if (content.type === 'img') {
+    inner = `<img src="${content.src}" alt="${escapeHtml(content.alt)}" style="max-width:100%;border-radius:8px;margin:2px 0;display:block;cursor:pointer;" onclick="window.open('${content.src}','_blank')">`;
   } else {
-    bubble.innerHTML = `${formatMsg(text)}<div class="bubble-time">${time} <span class="ticks">✓✓</span></div>`;
+    inner = formatMsg(content.val);
+  }
+
+  if (role === 'bot') {
+    bubble.innerHTML = `<div class="bubble-sender">🤖 Sofia — Agente Pinetree</div>${inner}${isLast ? `<div class="bubble-time">${time}</div>` : ''}`;
+  } else {
+    bubble.innerHTML = `${inner}<div class="bubble-time">${time} <span class="ticks">✓✓</span></div>`;
   }
 
   wrap.appendChild(bubble);
   messages.appendChild(wrap);
   scrollBottom();
-  return wrap;
+}
+
+function addBubble(text, role, time) {
+  if (role === 'user') {
+    renderBubble({ type: 'text', val: text }, role, time, true);
+    return;
+  }
+  // Bot: divide em múltiplas bolhas com delay
+  const parts = splitBubbles(text);
+  parts.forEach((part, i) => {
+    setTimeout(() => {
+      renderBubble(part, role, time, i === parts.length - 1);
+    }, i * 300);
+  });
 }
 
 function showTyping() {

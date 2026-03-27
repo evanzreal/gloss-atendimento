@@ -177,7 +177,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);h
 </div>
 
 <script>
-const WEBHOOK_URL = 'https://SEU-WEBHOOK-AQUI.com/chat'; // TODO: trocar pela URL real do agente
+const WEBHOOK_URL = 'https://gloss.valorgarantido.com/webhook';
 let SESSION_ID = 'session_' + Math.random().toString(36).slice(2, 10);
 
 let messageCount = 0;
@@ -367,8 +367,8 @@ async function sendMessage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: text,
-        sessionId: SESSION_ID,
-        timestamp: new Date().toISOString()
+        session_id: SESSION_ID,
+        secret: 'gloss-secret-2026'
       })
     });
 

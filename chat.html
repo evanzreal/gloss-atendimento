@@ -214,47 +214,28 @@ function hideEmpty() {
 function splitBubbles(text) {
   const parts = [];
 
-  // Passo 1: separa imagens (markdown ![alt](url) ou URL pura) do texto
-  const tokenRe = /!\[([^\]]*)\]\((https?:\/\/[^)]+)\)|https?:\/\/\S+/g;
+  // Passo 1: separa apenas imagens markdown ![alt](url) do texto
+  const imgRe = /!\[([^\]]*)\]\((https?:\/\/[^)\s]+)\)/g;
   let last = 0, m;
-  while ((m = tokenRe.exec(text)) !== null) {
+  while ((m = imgRe.exec(text)) !== null) {
     if (m.index > last) parts.push({ type: 'text', val: text.slice(last, m.index) });
-    parts.push({ type: 'img', src: m[2] || m[0], alt: m[1] || '' });
+    parts.push({ type: 'img', src: m[2], alt: m[1] || '' });
     last = m.index + m[0].length;
   }
   if (last < text.length) parts.push({ type: 'text', val: text.slice(last) });
 
-  // Passo 2: quebra blocos de texto em frases
-  // Regra: quebra após . ! ? seguido de espaço+letra maiúscula ou emoji (nova frase)
-  // NÃO quebra em : ou no meio de frases
+  // Passo 2: quebra blocos de texto por linhas duplas (\n\n) para separar parágrafos
   const expanded = [];
   for (const part of parts) {
     if (part.type !== 'text') { expanded.push(part); continue; }
-
-    // Split: após [.!?] seguido de espaço e letra maiúscula/emoji (início real de nova frase)
-    const frases = part.val.split(/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÂÊÎÔÛÀÃÕÇ\p{Emoji_Presentation}\p{Extended_Pictographic}])/u);
-    for (const f of frases) {
-      const t = f.trim();
+    const paragraphs = part.val.split(/\n\n+/);
+    for (const p of paragraphs) {
+      const t = p.trim();
       if (t) expanded.push({ type: 'text', val: t });
     }
   }
 
-  // Passo 3: gruda emojis/fragmentos curtos sozinhos na bolha anterior
-  const merged = [];
-  for (const part of expanded) {
-    if (
-      part.type === 'text' &&
-      merged.length > 0 &&
-      merged[merged.length - 1].type === 'text' &&
-      /^[\p{Emoji_Presentation}\p{Extended_Pictographic}\s]{1,3}$/u.test(part.val)
-    ) {
-      merged[merged.length - 1].val += ' ' + part.val;
-    } else {
-      merged.push(part);
-    }
-  }
-
-  return merged.filter(p => p.type === 'img' || p.val.trim());
+  return expanded.filter(p => p.type === 'img' || p.val.trim());
 }
 
 function renderBubble(content, role, time, isFirst, isLast) {

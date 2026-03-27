@@ -334,11 +334,22 @@ function formatMsg(str) {
     if (p.type === 'img') {
       return `<img src="${p.src}" alt="${escapeHtml(p.alt)}" style="max-width:100%;border-radius:8px;margin:4px 0;display:block;cursor:pointer;" onclick="window.open('${p.src}','_blank')">`;
     }
-    return escapeHtml(p.val)
-      .replace(/\*(.*?)\*/g, '<strong>$1</strong>')
-      .replace(/_(.*?)_/g,   '<em>$1</em>')
-      .replace(/~(.*?)~/g,   '<s>$1</s>')
-      .replace(/\n/g, '<br>');
+    let t = escapeHtml(p.val);
+    // Links markdown completos: [texto](url)
+    t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" style="color:var(--bordeaux);text-decoration:underline;">$1</a>');
+    // Links markdown truncados: [texto]( url-incompleta  — sem fechar )
+    t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s]+)/g, '<a href="$2" target="_blank" style="color:var(--bordeaux);text-decoration:underline;">$1</a>');
+    // Links markdown sem URL: [texto]( ou [texto]() — mostra só o texto
+    t = t.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1');
+    // URLs soltas (não dentro de href)
+    t = t.replace(/(?<!href=")(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" style="color:var(--bordeaux);text-decoration:underline;">$1</a>');
+    // Markdown formatting
+    t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    t = t.replace(/\*(.+?)\*/g, '<strong>$1</strong>');
+    t = t.replace(/_(.*?)_/g, '<em>$1</em>');
+    t = t.replace(/~(.*?)~/g, '<s>$1</s>');
+    t = t.replace(/\n/g, '<br>');
+    return t;
   }).join('');
 }
 

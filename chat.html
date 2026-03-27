@@ -3,25 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Testar Agente — Pine Tree Farm</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Testar Agente — Gloss Eyewear</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --forest:#1a3d2b;--pine:#2D6A4F;--sage:#52B788;--moss:#74C69D;
-  --mist:#B7E4C7;--dew:#D8F3DC;--amber:#D4A853;--stone:#6B7280;
-  --parchment:#F7F4EF;--ink:#1C1F1A;
+  --champagne:#F5EDD6;--gold:#B8963E;--gold-light:#D4AC5A;--bordeaux:#5C1F2E;
+  --bordeaux-light:#7A2D40;--blush:#F2D5C0;--smoke:#E8E0D4;--stone:#6B5E52;
+  --dew:#FAF4E8;--ink:#2A1A10;--white:#FFFDF8;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Outfit',sans-serif;background:var(--parchment);color:var(--ink);height:100dvh;display:flex;flex-direction:column;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);height:100dvh;display:flex;flex-direction:column;}
 
 /* NAV */
-.nav{background:var(--forest);border-bottom:2px solid var(--sage);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.nav{background:var(--bordeaux);border-bottom:2px solid var(--gold);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .nav-logo{display:flex;align-items:center;gap:10px;}
-.nav-circle{width:32px;height:32px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;}
-.nav-title{font-family:'DM Serif Display',serif;font-size:15px;color:#fff;line-height:1.2;}
-.nav-sub{font-size:9px;color:var(--moss);letter-spacing:.1em;text-transform:uppercase;}
-.back-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(82,183,136,.12);border:1px solid rgba(82,183,136,.3);border-radius:8px;color:var(--sage);font-size:12px;font-family:'Outfit',sans-serif;text-decoration:none;transition:background .2s;}
-.back-btn:hover{background:rgba(82,183,136,.22);}
+.nav-circle{width:32px;height:32px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.nav-title{font-family:'Playfair Display',serif;font-size:15px;color:#fff;line-height:1.2;}
+.nav-sub{font-size:9px;color:var(--gold-light);letter-spacing:.1em;text-transform:uppercase;}
+.back-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(184,150,62,.12);border:1px solid rgba(184,150,62,.3);border-radius:8px;color:var(--gold);font-size:12px;font-family:'DM Sans',sans-serif;text-decoration:none;transition:background .2s;}
+.back-btn:hover{background:rgba(184,150,62,.22);}
 
 /* LAYOUT */
 .layout{flex:1;display:flex;overflow:hidden;}
@@ -29,28 +29,28 @@ body{font-family:'Outfit',sans-serif;background:var(--parchment);color:var(--ink
 /* SIDEBAR */
 .sidebar{width:260px;background:#fff;border-right:1px solid #e5e7eb;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;}
 .sidebar-head{padding:20px 18px 14px;border-bottom:1px solid #f0f0f0;}
-.sidebar-head h2{font-family:'DM Serif Display',serif;font-size:16px;color:var(--forest);margin-bottom:4px;}
+.sidebar-head h2{font-family:'Playfair Display',serif;font-size:16px;color:var(--bordeaux);font-weight:700;margin-bottom:4px;}
 .sidebar-head p{font-size:11px;color:var(--stone);line-height:1.5;}
 .sidebar-section{padding:14px 18px;}
 .sidebar-label{font-size:9px;font-weight:700;color:var(--stone);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;font-family:'DM Mono',monospace;}
 .phase-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:7px;margin-bottom:2px;font-size:12px;color:var(--stone);}
 .phase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.phase-item.active{background:var(--dew);color:var(--forest);font-weight:500;}
+.phase-item.active{background:var(--dew);color:var(--bordeaux);font-weight:500;}
 .info-box{background:var(--dew);border-radius:10px;padding:12px 14px;margin-top:4px;}
 .info-row{font-size:11px;color:var(--stone);line-height:1.8;}
-.info-row strong{color:var(--forest);}
-.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sage);margin-right:5px;animation:pulse 2s infinite;}
+.info-row strong{color:var(--bordeaux);}
+.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-right:5px;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.reset-btn{margin:8px 18px 18px;padding:9px;background:var(--dew);border:1px solid var(--mist);border-radius:8px;color:var(--pine);font-size:12px;font-family:'Outfit',sans-serif;cursor:pointer;transition:background .2s;font-weight:500;}
-.reset-btn:hover{background:var(--mist);}
+.reset-btn{margin:8px 18px 18px;padding:9px;background:var(--dew);border:1px solid var(--smoke);border-radius:8px;color:var(--bordeaux);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .2s;font-weight:500;}
+.reset-btn:hover{background:var(--smoke);}
 
 /* CHAT AREA */
 .chat-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;}
 .chat-topbar{padding:12px 20px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.agent-avatar{width:36px;height:36px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.agent-name{font-size:14px;font-weight:600;color:var(--forest);}
-.agent-status{font-size:11px;color:var(--sage);display:flex;align-items:center;gap:4px;}
-.agent-status::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sage);}
+.agent-avatar{width:36px;height:36px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.agent-name{font-size:14px;font-weight:600;color:var(--bordeaux);}
+.agent-status{font-size:11px;color:var(--gold);display:flex;align-items:center;gap:4px;}
+.agent-status::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);}
 
 /* MESSAGES */
 .messages{flex:1;overflow-y:auto;padding:20px 16px;display:flex;flex-direction:column;gap:8px;background:#ECE5DD;}
@@ -63,7 +63,7 @@ body{font-family:'Outfit',sans-serif;background:var(--parchment);color:var(--ink
 .bubble{max-width:72%;padding:9px 13px;border-radius:8px;font-size:13.5px;line-height:1.55;position:relative;word-break:break-word;}
 .bubble.bot{background:#fff;color:#111;border-radius:0 8px 8px 8px;box-shadow:0 1px 2px rgba(0,0,0,.1);}
 .bubble.user{background:#DCF8C6;color:#111;border-radius:8px 0 8px 8px;box-shadow:0 1px 2px rgba(0,0,0,.1);}
-.bubble-sender{font-size:10px;font-weight:700;color:var(--pine);margin-bottom:3px;}
+.bubble-sender{font-size:10px;font-weight:700;color:var(--bordeaux);margin-bottom:3px;}
 .bubble-time{font-size:10px;color:#999;text-align:right;margin-top:3px;}
 .bubble-time .ticks{color:#34B7F1;}
 
@@ -80,21 +80,21 @@ body{font-family:'Outfit',sans-serif;background:var(--parchment);color:var(--ink
 /* INPUT */
 .input-area{background:#F0F0F0;border-top:1px solid #ddd;padding:10px 12px;display:flex;align-items:flex-end;gap:8px;flex-shrink:0;}
 .input-wrap{flex:1;background:#fff;border-radius:22px;padding:9px 16px;display:flex;align-items:center;gap:8px;min-height:42px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
-#msg-input{flex:1;border:none;outline:none;font-size:14px;font-family:'Outfit',sans-serif;color:var(--ink);background:transparent;resize:none;max-height:100px;line-height:1.4;}
+#msg-input{flex:1;border:none;outline:none;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink);background:transparent;resize:none;max-height:100px;line-height:1.4;}
 #msg-input::placeholder{color:#aaa;}
-.send-btn{width:40px;height:40px;background:var(--pine);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;flex-shrink:0;}
-.send-btn:hover{background:var(--forest);}
+.send-btn{width:40px;height:40px;background:var(--gold);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;flex-shrink:0;}
+.send-btn:hover{background:var(--bordeaux);}
 .send-btn:disabled{background:#ccc;cursor:default;}
 .send-btn svg{width:18px;height:18px;fill:#fff;margin-left:2px;}
 
 /* EMPTY STATE */
 .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--stone);padding:32px;}
 .empty-icon{width:64px;height:64px;background:var(--dew);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;}
-.empty-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--forest);}
+.empty-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--bordeaux);}
 .empty-desc{font-size:13px;text-align:center;line-height:1.6;max-width:280px;}
 .quick-btns{display:flex;flex-direction:column;gap:8px;margin-top:4px;width:100%;max-width:300px;}
-.quick-btn{padding:9px 16px;background:#fff;border:1px solid #e5e7eb;border-radius:20px;font-size:12px;color:var(--forest);cursor:pointer;transition:all .15s;text-align:center;font-family:'Outfit',sans-serif;}
-.quick-btn:hover{background:var(--dew);border-color:var(--mist);}
+.quick-btn{padding:9px 16px;background:#fff;border:1px solid #e5e7eb;border-radius:20px;font-size:12px;color:var(--bordeaux);cursor:pointer;transition:all .15s;text-align:center;font-family:'DM Sans',sans-serif;}
+.quick-btn:hover{background:var(--dew);border-color:var(--smoke);}
 
 /* MOBILE */
 @media(max-width:768px){
@@ -110,9 +110,9 @@ body{font-family:'Outfit',sans-serif;background:var(--parchment);color:var(--ink
 
 <nav class="nav">
   <div class="nav-logo">
-    <div class="nav-circle">🌲</div>
+    <div class="nav-circle">🌸</div>
     <div>
-      <div class="nav-title">Pine Tree Farm</div>
+      <div class="nav-title">Gloss Eyewear</div>
       <div class="nav-sub">Teste do Agente</div>
     </div>
   </div>
@@ -124,18 +124,18 @@ body{font-family:'Outfit',sans-serif;background:var(--parchment);color:var(--ink
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-head">
-      <h2>Agente Pinetree</h2>
-      <p><span class="status-dot"></span>Online · Pronto para atendimento</p>
+      <h2>Agente Gloss</h2>
+      <p><span class="status-dot"></span>Online · Pronto para atender as amoras</p>
     </div>
 
     <div class="sidebar-section">
       <div class="sidebar-label">Fases do Atendimento</div>
-      <div class="phase-item" id="phase-1"><div class="phase-dot" style="background:#52B788"></div>1 · Boas-vindas</div>
-      <div class="phase-item" id="phase-2"><div class="phase-dot" style="background:#74C69D"></div>2 · Captura de E-mail</div>
-      <div class="phase-item" id="phase-3"><div class="phase-dot" style="background:#D4A853"></div>3 · Apresentar Produtos</div>
-      <div class="phase-item" id="phase-4"><div class="phase-dot" style="background:#C9705A"></div>4 · Agente Especialista</div>
-      <div class="phase-item" id="phase-5"><div class="phase-dot" style="background:#2D6A4F"></div>5 · Qualificação</div>
-      <div class="phase-item" id="phase-6"><div class="phase-dot" style="background:#1a3d2b"></div>6 · Encerramento</div>
+      <div class="phase-item" id="phase-1"><div class="phase-dot" style="background:#B8963E"></div>1 · Boas-vindas</div>
+      <div class="phase-item" id="phase-2"><div class="phase-dot" style="background:#D4AC5A"></div>2 · Identificar necessidade</div>
+      <div class="phase-item" id="phase-3"><div class="phase-dot" style="background:#5C1F2E"></div>3 · Apresentar produtos</div>
+      <div class="phase-item" id="phase-4"><div class="phase-dot" style="background:#7A2D40"></div>4 · Calcular frete</div>
+      <div class="phase-item" id="phase-5"><div class="phase-dot" style="background:#B8963E"></div>5 · Fechar venda</div>
+      <div class="phase-item" id="phase-6"><div class="phase-dot" style="background:#2A1A10"></div>6 · Encerramento</div>
     </div>
 
     <button class="reset-btn" onclick="resetChat()">↺ Reiniciar conversa</button>
@@ -144,22 +144,22 @@ body{font-family:'Outfit',sans-serif;background:var(--parchment);color:var(--ink
   <!-- CHAT -->
   <div class="chat-wrap">
     <div class="chat-topbar">
-      <div class="agent-avatar">🌲</div>
+      <div class="agent-avatar" style="background:var(--gold);">🌸</div>
       <div>
-        <div class="agent-name">Agente Pinetree</div>
+        <div class="agent-name" style="color:var(--bordeaux);">Gloss Eyewear</div>
         <div class="agent-status">online</div>
       </div>
     </div>
 
     <div class="messages" id="messages">
       <div class="empty-state" id="empty-state">
-        <div class="empty-icon">🌲</div>
-        <div class="empty-title">Olá! Tudo pronto.</div>
-        <div class="empty-desc">Inicie uma conversa para testar o agente de atendimento da Pine Tree Farm.</div>
+        <div class="empty-icon">🌸</div>
+        <div class="empty-title">Oi, amora! 🌸</div>
+        <div class="empty-desc">Inicie uma conversa para testar o agente de atendimento da Gloss Eyewear.</div>
         <div class="quick-btns">
           <button class="quick-btn" onclick="sendQuick('oi')">👋 Dizer oi</button>
-          <button class="quick-btn" onclick="sendQuick('quero informações sobre aniversário')">🎉 Perguntar sobre aniversário</button>
-          <button class="quick-btn" onclick="sendQuick('quero saber sobre colônia de férias')">🏕️ Perguntar sobre colônia</button>
+          <button class="quick-btn" onclick="sendQuick('quero ver óculos quadrado vermelho')">🕶️ Buscar óculos</button>
+          <button class="quick-btn" onclick="sendQuick('quanto fica o frete para São Paulo?')">📦 Perguntar sobre frete</button>
         </div>
       </div>
     </div>
@@ -177,7 +177,7 @@ body{font-family:'Outfit',sans-serif;background:var(--parchment);color:var(--ink
 </div>
 
 <script>
-const WEBHOOK_URL = 'https://agente.valorgarantido.com/chat';
+const WEBHOOK_URL = 'https://SEU-WEBHOOK-AQUI.com/chat'; // TODO: trocar pela URL real do agente
 let SESSION_ID = 'session_' + Math.random().toString(36).slice(2, 10);
 
 let messageCount = 0;
@@ -273,7 +273,7 @@ function renderBubble(content, role, time, isFirst, isLast) {
   }
 
   if (role === 'bot') {
-    const sender = isFirst ? '<div class="bubble-sender">🤖 Sofia — Agente Pinetree</div>' : '';
+    const sender = isFirst ? '<div class="bubble-sender">🌸 Gloss Eyewear</div>' : '';
     const timestamp = isLast ? `<div class="bubble-time">${time}</div>` : '';
     bubble.innerHTML = `${sender}${inner}${timestamp}`;
   } else {
@@ -404,13 +404,13 @@ function resetChat() {
   const messages = document.getElementById('messages');
   messages.innerHTML = `
     <div class="empty-state" id="empty-state">
-      <div class="empty-icon">🌲</div>
-      <div class="empty-title">Olá! Tudo pronto.</div>
-      <div class="empty-desc">Inicie uma conversa para testar o agente de atendimento da Pine Tree Farm.</div>
+      <div class="empty-icon">🌸</div>
+      <div class="empty-title">Oi, amora! 🌸</div>
+      <div class="empty-desc">Inicie uma conversa para testar o agente de atendimento da Gloss Eyewear.</div>
       <div class="quick-btns">
         <button class="quick-btn" onclick="sendQuick('oi')">👋 Dizer oi</button>
-        <button class="quick-btn" onclick="sendQuick('quero informações sobre aniversário')">🎉 Perguntar sobre aniversário</button>
-        <button class="quick-btn" onclick="sendQuick('quero saber sobre colônia de férias')">🏕️ Perguntar sobre colônia</button>
+        <button class="quick-btn" onclick="sendQuick('quero ver óculos quadrado vermelho')">🕶️ Buscar óculos</button>
+        <button class="quick-btn" onclick="sendQuick('quanto fica o frete para São Paulo?')">📦 Perguntar sobre frete</button>
       </div>
     </div>`;
   messageCount = 0;
